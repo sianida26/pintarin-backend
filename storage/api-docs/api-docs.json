@@ -1,0 +1,44 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Pintarin Documentation",
+        "description": "Pintarin OpenApi description",
+        "contact": {
+            "email": "chesanurhidayat@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api/",
+            "description": "Pintarin API Server"
+        }
+    ],
+    "paths": {
+        "/__test__": {
+            "get": {
+                "tags": [
+                    "Development Endpoints"
+                ],
+                "summary": "Test API Endpoint",
+                "description": "Returns OK",
+                "operationId": "f7982b539f981f4e5dcd0ed683276ca8",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Development Endpoints",
+            "description": "API Endpoints for development purposes only"
+        }
+    ]
+}
