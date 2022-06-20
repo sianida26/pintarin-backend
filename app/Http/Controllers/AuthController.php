@@ -12,7 +12,8 @@ use Illuminate\Support\Str;
 class AuthController extends Controller
 {
     //
-    public function register(Request $request){
+    public function register(Request $request)
+    {
 
         $rules = [
             'name' => 'required|string|max:255',
@@ -33,8 +34,8 @@ class AuthController extends Controller
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
-        
-        if ($validator->fails()){
+
+        if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors(), 'message' => 'Terdapat data yang tidak sesuai. Silakan coba lagi'], 422);
         }
 
@@ -45,14 +46,19 @@ class AuthController extends Controller
             'TTL' => $request->TTL,
         ]);
 
-        if (Str::lower($request->role) === 'siswa'){
+        if (Str::lower($request->role) === 'siswa') {
             $user->assignRole('siswa');
-        } else if (Str::contains(Str::lower($request->role), 'guru')){
+        } else if (Str::contains(Str::lower($request->role), 'guru')) {
             $user->assignRole('guru');
             if ($request->role === 'guru profesional') $user->assignRole('guru profesional');
             else if ($request->role === 'guru komunitas') $user->assignRole('guru komunitas');
         }
 
-        return response()->json(['message' => 'Berhasil mendaftar', 'data' => $user], 200);
+        return response()->json([
+            'message' => 'Berhasil mendaftar', 
+            'name' => $user->name,
+            'role' => $user->roles[0]?->name,
+            'token' => $user->createToken('pitnarin')->plainTextToken,
+        ], 200);
     }
 }

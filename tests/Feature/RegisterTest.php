@@ -73,8 +73,9 @@ it("Should return user's token if success", function(){
     ]);
 
     $response->assertStatus(200);
+    $response->dump();
    
-    $response->assertJson(fn (AssertableJson $json) => $json->hasKey('token'));
+    $response->assertJsonStructure(['token']);
 });
 
 it("Should return user's role if success", function(){
@@ -90,7 +91,7 @@ it("Should return user's role if success", function(){
     $response->assertStatus(200);
    
     $response->assertJson([
-        'role' => 'Siswa'
+        'role' => 'siswa'
     ]);
 });
 
@@ -106,9 +107,7 @@ it("Should return user's name if success", function(){
 
     $response->assertStatus(200);
    
-    $response->assertJson([
-        'name' => 'test',
-    ]);
+    $response->assertJsonPath('name', 'test');
 });
 
 it("Should return 422 with 'Harus diisi' when tehre's empty");
