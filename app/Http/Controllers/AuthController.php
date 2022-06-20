@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -60,5 +61,20 @@ class AuthController extends Controller
             'role' => $user->roles[0]?->name,
             'token' => $user->createToken('pitnarin')->plainTextToken,
         ], 200);
+    }
+
+    public function login(Request $request){
+        
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            $user = Auth::user();
+            return response()->json([
+                'message' => 'Berhasil login', 
+                'name' => $user->name,
+                'role' => $user->getRoleNames()->first(),
+                'token' => $user->createToken('pitnarin')->plainTextToken,
+            ], 200);
+        } else {
+            return response()->json(['message' => 'Username atau password salah'], 401);
+        }
     }
 }

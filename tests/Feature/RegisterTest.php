@@ -71,7 +71,7 @@ it("Should return user's token if success", function(){
     ]);
 
     $response->assertStatus(200);
-    $response->dump();
+    // $response->dump();
    
     $response->assertJsonStructure(['token']);
 });
