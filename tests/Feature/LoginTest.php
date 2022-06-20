@@ -79,3 +79,5 @@ it("Return user's name when success", function(){
     $response->assertStatus(200);
     $response->assertJsonPath('name', 'test');
 });
+
+it("Return user's role when success");
