@@ -80,4 +80,20 @@ it("Return user's name when success", function(){
     $response->assertJsonPath('name', 'test');
 });
 
-it("Return user's role when success");
+it("Return user's role when success" , function(){
+    $user = User::factory()->create([
+        'email' => 'test@test.com',
+        'password' => Hash::make('test12345'),
+        'name' => 'test',
+    ]);
+
+    $user->assignRole('siswa');
+
+    $response = $this->postJson(LOGIN_URL, [
+        'email' => 'test@test.com',
+        'password' => 'test12345',
+    ]);
+
+    $response->assertStatus(200);
+    $response->assertJsonPath('role', 'siswa');
+});

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -18,7 +19,7 @@ class AuthController extends Controller
 
         $rules = [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email:rfc|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'TTL' => 'required|string|max:255',
             'role' => 'required|string|max:255',
@@ -28,9 +29,9 @@ class AuthController extends Controller
             'required' => 'Harus diisi',
             'string' => 'Harus berupa teks',
             'max' => 'Maksimal :max karakter',
-            'email' => 'Harus berupa email',
+            'email' => 'Email tidak sesuai format',
             'unique' => 'Email telah terdaftar',
-            'min' => 'Minimal :min karakter',
+            'min' => 'Password harus terdiri dari minimal :min karakter',
             'confirmed' => 'Password tidak sama',
         ];
 
@@ -55,6 +56,16 @@ class AuthController extends Controller
             else if ($request->role === 'guru komunitas') $user->assignRole('guru komunitas');
         }
 
+        if (App::environment() === 'testing'){
+            return response()->json([
+                'message' => 'Berhasil mendaftar', 
+                'name' => $user->name,
+                'role' => $user->roles[0]?->name,
+                'token' => $user->createToken('pitnarin')->plainTextToken,
+                '__userid__' => $user->id,
+            ], 200);
+        }
+
         return response()->json([
             'message' => 'Berhasil mendaftar', 
             'name' => $user->name,
@@ -67,6 +78,7 @@ class AuthController extends Controller
         
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
+
             return response()->json([
                 'message' => 'Berhasil login', 
                 'name' => $user->name,

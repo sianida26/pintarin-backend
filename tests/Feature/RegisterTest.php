@@ -15,6 +15,12 @@ afterEach(function(){
         $user->tokens()->delete();
         $user->forceDelete();
     }
+
+    $user = User::firstWhere('name', 'test');
+    if ($user){
+        $user->tokens()->delete();
+        $user->forceDelete();
+    }
 });
 
 it('Should return 405 other than POST method', function () {
@@ -71,7 +77,6 @@ it("Should return user's token if success", function(){
     ]);
 
     $response->assertStatus(200);
-    // $response->dump();
    
     $response->assertJsonStructure(['token']);
 });
@@ -108,10 +113,60 @@ it("Should return user's name if success", function(){
     $response->assertJsonPath('name', 'test');
 });
 
-it("Should return 422 with 'Harus diisi' when tehre's empty");
+it("Should return 422 with 'Harus diisi' when there's empty", function(){
+    $response = $this->postJson(REGISTER_URL, [
+        'name' => '',
+        'email' => '',
+        'TTL' => '',
+        'role' => '',
+        'password' => '',
+        'password_confirmation' => ''
+    ]);
 
-it("Should return 422 with 'Password tidak sama' when password not match");
+    $response->assertStatus(422);
+    $response->assertJsonPath('errors.name.0', 'Harus diisi');
+    $response->assertJsonPath('errors.email.0', 'Harus diisi');
+    $response->assertJsonPath('errors.TTL.0', 'Harus diisi');
+});
 
-it("Should return 422 with 'Password harus lebih dari 5 karakter' when password less than 5 characters");
+it("Should return 422 with 'Password tidak sama' when password not match", function() {
+    $response = $this->postJson(REGISTER_URL, [
+        'name' => 'test',
+        'email' => 'test@test.com',
+        'TTL' => 'Malang, 8 September 2022',
+        'role' => 'Siswa',
+        'password' => 'test12345',
+        'password_confirmation' => 'test123456'
+    ]);
 
-it("Should return 422 with 'Email tidak sesuai format' when email not match format");
+    $response->assertStatus(422);
+    $response->assertJsonPath('errors.password.0', 'Password tidak sama');
+});
+
+it("Should return 422 with 'Password harus lebih dari 5 karakter' when password less than 5 characters", function(){
+    $response = $this->postJson(REGISTER_URL, [
+        'name' => 'test',
+        'email' => 'test@test.com',
+        'TTL' => 'Malang, 8 September 2022',
+        'role' => 'Siswa',
+        'password' => 'test1',
+        'password_confirmation' => 'test1'
+    ]);
+
+    $response->assertStatus(422);
+    $response->assertJsonPath('errors.password.0', 'Password harus terdiri dari minimal 6 karakter');
+});
+
+it("Should return 422 with 'Email tidak sesuai format' when email not match format", function() {
+    $response = $this->postJson(REGISTER_URL, [
+        'name' => 'test',
+        'email' => 'test',
+        'TTL' => 'Malang, 8 September 2022',
+        'role' => 'Siswa',
+        'password' => 'test12345',
+        'password_confirmation' => 'test12345'
+    ]);
+
+    $response->assertStatus(422);
+    $response->assertJsonPath('errors.email.0', 'Email tidak sesuai format');
+});
