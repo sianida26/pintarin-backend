@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('nip')->nullable();
             $table->string('nuptk')->nullable();
             $table->string('jabatan')->nullable();
-            $table->string('ttl')->nullable();
             $table->boolean('isMale')->default(true);
             $table->text('address')->nullable();
             $table->string('phone')->nullable();

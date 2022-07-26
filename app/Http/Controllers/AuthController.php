@@ -52,6 +52,7 @@ class AuthController extends Controller
             $user->assignRole('siswa');
         } else if (Str::contains(Str::lower($request->role), 'guru')) {
             $user->assignRole('guru');
+            $user->guru()->create([]);
             if ($request->role === 'guru profesional') $user->assignRole('guru profesional');
             else if ($request->role === 'guru komunitas') $user->assignRole('guru komunitas');
         }

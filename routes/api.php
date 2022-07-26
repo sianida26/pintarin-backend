@@ -1,10 +1,11 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DevController;
+use App\Http\Controllers\ProfileController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\DevController;
-use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,8 @@ use App\Http\Controllers\AuthController;
 */
 
 Route::get('/__test__', [ DevController::class, 'test' ]);
+
+Route::middleware('auth:sanctum')->post('/lengkapi-profil-guru', [ ProfileController::class, 'lengkapiDataGuru' ]);
 
 Route::group(['prefix' => 'auth'], function () {
     Route::post('/register', [ AuthController::class, 'register' ]);
