@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DevController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UjianController;
+use App\Http\Controllers\SoalController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,10 @@ Route::group(['prefix' => 'auth'], function () {
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::group(['middleware' => 'auth:sanctum'], function(){
+    Route::post('/soal', [ SoalController::class, 'createSoal' ]);
 });
 
 Route::apiResource('ujian', UjianController::class);

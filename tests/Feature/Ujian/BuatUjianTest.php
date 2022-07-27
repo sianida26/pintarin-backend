@@ -37,7 +37,6 @@ it('Should return 200 if success', function(){
             'name' => 'Coba Ujian',
             'category' => 'numerasi',
             'isUjian' => true,
-            'guruId' => $guru->id,
         ]);
 
     $response->assertStatus(200);
@@ -63,7 +62,6 @@ it('Should return 422 if name is empty', function(){
             'name' => '',
             'category' => 'numerasi',
             'isUjian' => true,
-            'guruId' => $guru->id,
         ]);
     
     $response->assertStatus(422);
@@ -85,7 +83,6 @@ it('Should return 422 if name length is more than 255', function(){
             'name' => $faker->regexify('\w{256}'),
             'category' => 'numerasi',
             'isUjian' => true,
-            'guruId' => $guru->id,
         ]);
     
     $response->assertStatus(422);
@@ -106,7 +103,6 @@ it('Should return 422 if category is not exists in enum', function(){
             'name' => 'Coba Ujian',
             'category' => 'asu',
             'isUjian' => true,
-            'guruId' => $guru->id,
         ]);
 
     $response->assertStatus(422);
@@ -127,30 +123,8 @@ it('Should return 422 if isUjian is not boolean', function(){
             'name' => 'Coba Ujian',
             'category' => 'numerasi',
             'isUjian' => 'hahahaa',
-            'guruId' => $guru->id,
         ]);
 
     $response->assertStatus(422);
     $response->assertJsonPath('errors.isUjian.0','Harus berupa boolean');
-});
-
-it('Should return 422 if guru id is not exists', function(){
-
-    $guru = Guru::factory()->create();
-    $user = $guru->user;
-
-    $response = $this
-        ->withHeaders([
-            'Authorization' => 'Bearer ' . $user->getAccessToken(),
-            'Accept' => 'application/json',
-        ])
-        ->postJson(ENDPOINT_URL, [
-            'name' => 'Coba Ujian',
-            'category' => 'asu',
-            'isUjian' => true,
-            'guruId' => 99999999,
-        ]);
-
-    $response->assertStatus(422);
-    $response->assertJsonPath('errors.guruId.0','Guru tidak ada');
 });

@@ -19,7 +19,6 @@ return new class extends Migration
             $table->unsignedInteger('bobot');
             $table->enum('type', ['pg','pgk','menjodohkan','isian','uraian']); //pg: Pilihan ganda, pgk: Pilihan ganda kompleks
             $table->text('answers');
-            $table->text('correctAnswers');
             $table->foreignId('ujian_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes();

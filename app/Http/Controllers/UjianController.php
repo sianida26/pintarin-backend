@@ -45,7 +45,6 @@ class UjianController extends Controller
             'name' => 'required|max:255',
             'category' => ['required',Rule::in(['literasi','numerasi'])],
             'isUjian' => 'required|boolean',
-            'guruId' => 'required|exists:gurus,id',
         ];
 
         $messages = [
@@ -53,7 +52,6 @@ class UjianController extends Controller
             'max' => 'Maksimal :max karakter',
             'in' => 'Harus berupa literasi atau numerasi',
             'boolean' => 'Harus berupa boolean',
-            'exists' => 'Guru tidak ada',
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -65,7 +63,7 @@ class UjianController extends Controller
             'name' => $request->name,
             'category' => $request->category,
             'isUjian' => $request->isUjian,
-            'guru_id' => $request->guruId,
+            'guru_id' => Auth::user()->guru->id,
         ]);
 
         return response()->json([ 'ujian' => $ujian ]);
