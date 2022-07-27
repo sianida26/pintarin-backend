@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\User;
+use App\Models\Guru;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
@@ -10,20 +11,12 @@ use Illuminate\Support\Facades\Storage;
 
 const ENDPOINT_URL = '/api/lengkapi-profil-guru';
 
-$guru = null;
-
-beforeAll(function(){
-    $guru = Guru::factory()->create();
-});
+// beforeAll(function(){
+//     $guru = Guru::factory()->create();
+// });
 
 afterEach(function(){
-    $user = User::firstWhere('email', 'test@test.com');
-    if ($user) {
-        $user->tokens()->delete();
-        $user->forceDelete();
-    }
-    $guru->delete();
-    $guru->user->delete();
+    $user = User::where('email', 'LIKE', '%example%')->forceDelete();
 });
 
 it('Should return 405 other than POST method', function () {
@@ -40,42 +33,56 @@ it('Should return 401 if unauthenticated', function(){
 
 it('Should return 200 if success', function(){
 
+    $guru = Guru::factory()->create();
+    $user = $guru->user;
+
     Storage::fake('avaters');
 
     $file = UploadedFile::fake()->image('avatar.jpg');
 
-    $response = $this->postJson(ENDPOINT_URL, [
-        'foto' => $file,
-        'nip' => 32453,
-        'nuptk' => 33453434,
-        'jabatan' => 'guru',
-        'jk' => 'Perempuan',
-        'agama' => 'Konghucu',
-        'alamat' => 'Jl. in aja dulu',
-        'phone' => '077854546456',
-        'statusKepegawaian' => 'Guru Tetap',
-        'pendidikanTerakhir' => 'S4',
+    $response = $this
+        ->withHeaders([
+            'Authorization' => 'Bearer ' . $user->getAccessToken(),
+        ])
+        ->postJson(ENDPOINT_URL, [
+            'foto' => $file,
+            'nip' => 32453,
+            'nuptk' => 33453434,
+            'jabatan' => 'guru',
+            'jk' => 'Perempuan',
+            'agama' => 'Konghucu',
+            'alamat' => 'Jl. in aja dulu',
+            'phone' => '077854546456',
+            'statusKepegawaian' => 'Guru Tetap',
+            'pendidikanTerakhir' => 'S4',
     ]);
     $response->assertStatus(200);
 });
 
 it('Should return 422 if data is not valid', function(){
 
+    $guru = Guru::factory()->create();
+    $user = $guru->user;
+
     Storage::fake('avaters');
 
     $file = UploadedFile::fake()->image('avatar.jpg');
 
-    $response = $this->postJson(ENDPOINT_URL, [
-        'foto' => $file,
-        'nip' => 32453,
-        'nuptk' => 33453434,
-        'jabatan' => 'guru',
-        'jk' => 'Perempuan',
-        'agama' => 'Konghucu',
-        'alamat' => 'Jl. in aja dulu',
-        'phone' => '077854546456',
-        'statusKepegawaian' => 'Guru Tetap',
-        'pendidikanTerakhir' => 'S4',
+    $response = $this
+        ->withHeaders([
+            'Authorization' => 'Bearer ' . $user->getAccessToken(),
+        ])
+        ->postJson(ENDPOINT_URL, [
+            'foto' => $file,
+            'nip' => 32453,
+            'nuptk' => 33453434,
+            'jabatan' => 'guru',
+            'jk' => 'Perempuan',
+            'agama' => 'Konghucu',
+            'alamat' => 'Jl. in aja dulu',
+            'phone' => '', //Should fails
+            'statusKepegawaian' => 'Guru Tetap',
+            'pendidikanTerakhir' => 'S4',
     ]);
     $response->assertStatus(422);
 });

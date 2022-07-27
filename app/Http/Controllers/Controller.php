@@ -31,6 +31,11 @@ use Illuminate\Routing\Controller as BaseController;
  *     name="Development Endpoints",
  *     description="API Endpoints for development purposes only"
  * )
+ * 
+ * @OA\Tag(
+ *      name="Authentication Endpoints",
+ *      description="API Endpoints for authentication features",
+ * )
  */
 class Controller extends BaseController
 {

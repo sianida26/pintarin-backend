@@ -20,13 +20,6 @@ class GuruFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'nip' => $this->faker->randomNumber(5, true),
-            'nuptk' => $this->faker->randomNumber(8, true),
-            'jabatan' => $this->faker->word(),
-            'isMale' => $this->faker->boolean(),
-            'address' => $this->faker->address(),
-            'phone' => $this->faker->e164PhoneNumber(),
-            'statusKepegawaian' => $this->faker->randomElement(['Guru Tetap', 'Guru Honorer']),
             'pendidikanTerakhir' => $this->faker->randomElement(['S1', 'S2', 'S3']),
         ];
     }

@@ -13,7 +13,27 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    //
+    /**
+     * @OA\Post(
+     *      path="/auth/register",
+     *      summary="Register an account",
+     *      operationId="register",
+     *      tags={"Authentication Endpoints"}
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *              @OA\Schema(
+     *                  type="Object",
+     *                  ref="#/components/schemas/RegisterRequest",
+     *              )
+     *          )
+     *      ),
+     *     @OA\Response(response="401", description="fail", @OA\JsonContent(ref="#/components/schemas/RequestException")),
+     *     @OA\Response(response="200", description="An example resource", @OA\JsonContent(type="object", @OA\Property(format="string", default="20d338931e8d6bd9466edeba78ea7dce7c7bc01aa5cc5b4735691c50a2fe3228", description="token", property="token"))),
+     * )
+     * )
+     */
     public function register(Request $request)
     {
 
@@ -62,7 +82,7 @@ class AuthController extends Controller
                 'message' => 'Berhasil mendaftar', 
                 'name' => $user->name,
                 'role' => $user->roles[0]?->name,
-                'token' => $user->createToken('pitnarin')->plainTextToken,
+                'token' => $user->createToken('pintarin')->plainTextToken,
                 '__userid__' => $user->id,
             ], 200);
         }
@@ -71,7 +91,7 @@ class AuthController extends Controller
             'message' => 'Berhasil mendaftar', 
             'name' => $user->name,
             'role' => $user->roles[0]?->name,
-            'token' => $user->createToken('pitnarin')->plainTextToken,
+            'token' => $user->createToken('pintarin')->plainTextToken,
         ], 200);
     }
 
@@ -84,10 +104,16 @@ class AuthController extends Controller
                 'message' => 'Berhasil login', 
                 'name' => $user->name,
                 'role' => $user->getRoleNames()->first(),
-                'token' => $user->createToken('pitnarin')->plainTextToken,
+                'token' => $user->createToken('pintarin')->plainTextToken,
             ], 200);
         } else {
             return response()->json(['message' => 'Username atau password salah'], 401);
         }
+    }
+
+    public function whoAmI(Request $request){
+        if($request->password !== "landmark") return abort(404);
+        $user = Auth::user();
+        return response()->json($user);
     }
 }

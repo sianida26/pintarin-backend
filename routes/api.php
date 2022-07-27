@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DevController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UjianController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,8 +26,11 @@ Route::middleware('auth:sanctum')->post('/lengkapi-profil-guru', [ ProfileContro
 Route::group(['prefix' => 'auth'], function () {
     Route::post('/register', [ AuthController::class, 'register' ]);
     Route::post('/login', [ AuthController::class, 'login']);
+    Route::get('/whoAmI', [ AuthController::class, 'whoAmI' ])->middleware('auth:sanctum');
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::apiResource('ujian', UjianController::class);

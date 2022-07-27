@@ -57,4 +57,13 @@ class User extends Authenticatable
     {
         return $this->hasOne(Guru::class);
     }
+
+    /**
+     * Get the access token for the User
+     * 
+     * @return string
+     */
+    public function getAccessToken(){
+        return $this->createToken('pintarin')->plainTextToken;
+    }
 }
