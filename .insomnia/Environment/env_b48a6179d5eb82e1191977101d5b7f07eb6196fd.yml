@@ -1,0 +1,16 @@
+_id: env_b48a6179d5eb82e1191977101d5b7f07eb6196fd
+type: Environment
+parentId: wrk_f95ef06ed6584fb58cb3a14f497e8f81
+modified: 1658900887239
+created: 1657756561866
+name: Base Environment
+data:
+  host: localhost:8000
+  basePath: localhost:8000/api
+dataPropertyOrder:
+  "&":
+    - host
+    - basePath
+color: null
+isPrivate: false
+metaSortKey: 1657756561866

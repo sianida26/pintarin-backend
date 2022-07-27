@@ -1,0 +1,34 @@
+_id: req_a26ca1a7d84f4d9eaac781ab828ab785
+type: Request
+parentId: fld_8a53b0ca6a48487195288013f6e1bcea
+modified: 1658904909072
+created: 1658884588795
+url: "{{ _.basePath }}/auth/login"
+name: Login
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"email": "coba@gmail.com",
+    	"password": "coba123"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_147bd108afbb47218357b7e256cc05de
+  - id: pair_54cd569dd8c3453e9e4a5acd2fa95075
+    name: Accept
+    value: application/json
+    description: ""
+authentication: {}
+metaSortKey: -1657761044247
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

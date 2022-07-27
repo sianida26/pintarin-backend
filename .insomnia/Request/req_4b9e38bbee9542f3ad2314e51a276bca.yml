@@ -1,0 +1,38 @@
+_id: req_4b9e38bbee9542f3ad2314e51a276bca
+type: Request
+parentId: fld_8a53b0ca6a48487195288013f6e1bcea
+modified: 1658904489301
+created: 1657761044297
+url: "{{ _.basePath }}/auth/register"
+name: Register
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"name": "Coba",
+    	"email": "coba@gmail.com",
+    	"password": "coba123",
+    	"password_confirmation": "coba123",
+    	"TTL": "Malang, 8 September 1999",
+    	"role": "Guru Komunitas"
+    }
+parameters: []
+headers:
+  - id: pair_6a150eae3e224c7e8df0d5fb4af4f5f2
+    name: Accept
+    value: application/json
+    description: ""
+  - name: Content-Type
+    value: application/json
+    id: pair_3dd8c4e93b9347ba9b3033117287a0c4
+authentication: {}
+metaSortKey: -1657761044297
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

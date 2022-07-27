@@ -1,0 +1,34 @@
+_id: req_592238e621df42629014f3a6cf7ba331
+type: Request
+parentId: fld_53847aafa05a469c88e99f1b468d5c3e
+modified: 1658886797293
+created: 1658883636427
+url: "{{ _.basePath }}/ujian"
+name: Buat Ujian
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"name": "Coba Ujian",
+    	"category": "literasi",
+    	"isUjian": true,
+    	"guruId": 1
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_301ca0fcb39247d9af1f17f87203559a
+authentication:
+  type: bearer
+  token: 1|DavwSHms7yUp9cq32Ji48eZsszWKROvrzz4aUFku
+metaSortKey: -1658883636427
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

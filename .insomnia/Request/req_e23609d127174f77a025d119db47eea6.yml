@@ -1,0 +1,37 @@
+_id: req_e23609d127174f77a025d119db47eea6
+type: Request
+parentId: fld_871f54b27d8d453e80244278768df3ea
+modified: 1658904833503
+created: 1658883129343
+url: "{{ _.basePath }}/lengkapi-profil-guru"
+name: Lengkapi Profil Guru
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"nip": "43959",
+    	"nuptk": "345345",
+    	"jabatan": "Guru",
+    	"agama": "islam",
+    	"alamat": "Jl. in aja dulu",
+    	"phone": "087423487234",
+    	"statusKepegawaian": "Guru honorer",
+    	"pendidikanTerakhir": "S3"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_eef285e64ed448eca2907dafe0ffd950
+authentication:
+  type: bearer
+metaSortKey: -1658883129343
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

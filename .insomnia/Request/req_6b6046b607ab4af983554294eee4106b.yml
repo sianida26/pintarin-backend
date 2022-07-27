@@ -1,0 +1,38 @@
+_id: req_6b6046b607ab4af983554294eee4106b
+type: Request
+parentId: fld_53847aafa05a469c88e99f1b468d5c3e
+modified: 1658901338609
+created: 1658885464327
+url: "{{ _.basePath }}/ujian"
+name: Get All Ujian
+description: ""
+method: GET
+body: {}
+parameters:
+  - id: pair_1f01fd5372354774b3bd2d9a2e6c6a9d
+    name: page
+    value: "1"
+    description: ""
+    disabled: false
+  - id: pair_6da064089b6a4269924bbc0e3c4da358
+    name: perPage
+    value: "8"
+    description: ""
+    disabled: false
+headers:
+  - id: pair_de2a0bae20d74700ae1e31a4cac38e55
+    name: Accept
+    value: application/json
+    description: ""
+    disabled: false
+authentication:
+  type: bearer
+  token: 1|DavwSHms7yUp9cq32Ji48eZsszWKROvrzz4aUFku
+metaSortKey: -1658883636477
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,21 @@
+_id: req_f796aa32695c427ab324ebdae475282a
+type: Request
+parentId: fld_5e90e59072b942a3a6db78cad87d8a30
+modified: 1658884236485
+created: 1658883133091
+url: "{{ _.host }}/sanctum/csrf-cookie"
+name: Get CSRF Cookie
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1658883794449
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

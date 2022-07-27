@@ -1,0 +1,16 @@
+_id: env_78f22f822380412db1d898ea67200ded
+type: Environment
+parentId: env_b48a6179d5eb82e1191977101d5b7f07eb6196fd
+modified: 1658904481393
+created: 1658900898831
+name: Production
+data:
+  host: https://api.pintarin.id
+  basePath: https://api.pintarin.id/api
+dataPropertyOrder:
+  "&":
+    - host
+    - basePath
+color: null
+isPrivate: false
+metaSortKey: 1658900898831

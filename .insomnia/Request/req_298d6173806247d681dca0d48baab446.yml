@@ -1,0 +1,37 @@
+_id: req_298d6173806247d681dca0d48baab446
+type: Request
+parentId: fld_8a53b0ca6a48487195288013f6e1bcea
+modified: 1658905608574
+created: 1658885137499
+url: "{{ _.basePath }}/auth/whoAmI"
+name: WhoAmI
+description: ""
+method: GET
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"password": "landmark"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_e07cba796c9d4c19a13141e4337c763d
+  - id: pair_c9cb729a4eef4877b434d9325fdc8854
+    name: Accept
+    value: application/json
+    description: ""
+    disabled: false
+authentication:
+  type: bearer
+  token: 2|kMq7dllTQAOCddSqejYeUs0AplcO7M5sbyBWps5Z
+  disabled: false
+metaSortKey: -1658885137499
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

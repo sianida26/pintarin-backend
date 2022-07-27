@@ -1,0 +1,21 @@
+_id: req_702fe701bd7e4d009ce6c17d33e5cb4e
+type: Request
+parentId: fld_5e90e59072b942a3a6db78cad87d8a30
+modified: 1658883834105
+created: 1658883794499
+url: "{{ _.basePath }}/__test__"
+name: Test Connection
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1658883794499
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
