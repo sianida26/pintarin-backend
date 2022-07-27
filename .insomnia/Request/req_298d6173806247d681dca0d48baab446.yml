@@ -1,7 +1,7 @@
 _id: req_298d6173806247d681dca0d48baab446
 type: Request
 parentId: fld_8a53b0ca6a48487195288013f6e1bcea
-modified: 1658905608574
+modified: 1658933547104
 created: 1658885137499
 url: "{{ _.basePath }}/auth/whoAmI"
 name: WhoAmI
@@ -25,7 +25,7 @@ headers:
     disabled: false
 authentication:
   type: bearer
-  token: 2|kMq7dllTQAOCddSqejYeUs0AplcO7M5sbyBWps5Z
+  token: 1|IP26Fio5Mp3yg7eneKsfAu49FiFRhp5oayrc5q6j
   disabled: false
 metaSortKey: -1658885137499
 isPrivate: false

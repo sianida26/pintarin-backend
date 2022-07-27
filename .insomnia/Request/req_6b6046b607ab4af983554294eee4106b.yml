@@ -1,11 +1,13 @@
 _id: req_6b6046b607ab4af983554294eee4106b
 type: Request
 parentId: fld_53847aafa05a469c88e99f1b468d5c3e
-modified: 1658901338609
+modified: 1658907101067
 created: 1658885464327
 url: "{{ _.basePath }}/ujian"
 name: Get All Ujian
-description: ""
+description: |-
+  Kalau ingin pagination, pake query "page"
+  Kalau nggak, gausah pake query "page"
 method: GET
 body: {}
 parameters:
@@ -27,7 +29,7 @@ headers:
     disabled: false
 authentication:
   type: bearer
-  token: 1|DavwSHms7yUp9cq32Ji48eZsszWKROvrzz4aUFku
+  token: 3|XEGGfqgoN2PjFPUFfpkoQfLlQy8Z7wp10nCNp9w1
 metaSortKey: -1658883636477
 isPrivate: false
 settingStoreCookies: true

@@ -1,0 +1,48 @@
+_id: req_76ae1a4d871f42d0bc8caf97ad860b03
+type: Request
+parentId: fld_42239c0d886443778045f6f557e05f1f
+modified: 1658933857974
+created: 1658932723537
+url: "{{ _.basePath }}/soal"
+name: Buat Soal
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"ujianId": 1,
+    	"bobot": 2,
+    	"soal": "<p>Halooo</p>",
+    	"type": "pg",
+    	"jawabans": [
+    		{
+    			"content": "<p>Halo, aku jawaban A</p>",
+    			"isCorrect": false
+    		},
+    		{
+    			"content": "<p>Halo, aku jawaban B</p>",
+    			"isCorrect": true
+    		}
+    	]
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_8a2fb651e77d49c3bc7c797b942fc39c
+  - id: pair_4d811c712cc5492f89d14ccbfdb72c1f
+    name: Accept
+    value: application/json
+    description: ""
+authentication:
+  type: bearer
+  token: 1|IP26Fio5Mp3yg7eneKsfAu49FiFRhp5oayrc5q6j
+metaSortKey: -1658932723537
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
