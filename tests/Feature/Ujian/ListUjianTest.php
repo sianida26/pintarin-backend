@@ -12,6 +12,7 @@ use Illuminate\Testing\Fluent\AssertableJson;
 
 use Tests\TestCase;
 
+
 beforeEach(function(){
     $this->endpointUrl = '/api/ujian';
     $this->guru = Guru::factory()
@@ -55,7 +56,7 @@ it('Should return pagination data when pages query exists', function(){
         ->get($this->endpointUrl . '?page=1&perPage=13');
     
     $response->assertSuccessful();
-    
+
     $response->assertJson(fn (AssertableJson $json) => 
         $json->has('data',13)
              ->etc()
