@@ -128,24 +128,3 @@ it('Should return 422 if isUjian is not boolean', function(){
     $response->assertStatus(422);
     $response->assertJsonPath('errors.isUjian.0','Harus berupa boolean');
 });
-
-it('Should return 422 if guru id is not exists', function(){
-
-    $guru = Guru::factory()->create();
-    $user = $guru->user;
-
-    $response = $this
-        ->withHeaders([
-            'Authorization' => 'Bearer ' . $user->getAccessToken(),
-            'Accept' => 'application/json',
-        ])
-        ->postJson(ENDPOINT_URL, [
-            'name' => 'Coba Ujian',
-            'category' => 'asu',
-            'isUjian' => true,
-            'guruId' => 99999999,
-        ]);
-
-    $response->assertStatus(422);
-    $response->assertJsonPath('errors.guruId.0','Guru tidak ada');
-});

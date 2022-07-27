@@ -63,7 +63,7 @@ class UjianController extends Controller
             'name' => $request->name,
             'category' => $request->category,
             'isUjian' => $request->isUjian,
-            'guru_id' => Auth::id(),
+            'guru_id' => Auth::user()->guru->id,
         ]);
 
         return response()->json([ 'ujian' => $ujian ]);
