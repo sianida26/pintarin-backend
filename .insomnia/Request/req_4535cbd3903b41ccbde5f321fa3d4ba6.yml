@@ -1,0 +1,41 @@
+_id: req_4535cbd3903b41ccbde5f321fa3d4ba6
+type: Request
+parentId: fld_425d6c920b9a45f797099da174289f6c
+modified: 1659018383598
+created: 1659016789281
+url: "{{ _.basePath }}/matpel"
+name: Get All Matpel (Guru)
+description: ""
+method: GET
+body: {}
+parameters:
+  - id: pair_395a7afb2e7e49e5a482bff1651e8696
+    name: page
+    value: "2"
+    description: ""
+    disabled: false
+  - id: pair_3e758b333e014bc3bf3b6d64d58c7f07
+    name: ""
+    value: ""
+    description: ""
+  - id: pair_d529a52d17864e27a1d5ad5b51a6b3aa
+    name: perPage
+    value: "10"
+    description: ""
+    disabled: true
+headers:
+  - id: pair_fd076a49b31846d79e4134d7d16d41e5
+    name: Accept
+    value: application/json
+    description: ""
+authentication:
+  type: bearer
+  token: 78|gz8Kk6tnMwCFhlbNM8Tmj4IPCXXIZkAihFFJOpU3
+metaSortKey: -1659016789281
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
