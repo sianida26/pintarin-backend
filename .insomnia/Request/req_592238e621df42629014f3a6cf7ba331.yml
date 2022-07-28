@@ -1,7 +1,7 @@
 _id: req_592238e621df42629014f3a6cf7ba331
 type: Request
 parentId: fld_53847aafa05a469c88e99f1b468d5c3e
-modified: 1658886797293
+modified: 1658933054378
 created: 1658883636427
 url: "{{ _.basePath }}/ujian"
 name: Buat Ujian
@@ -20,10 +20,10 @@ parameters: []
 headers:
   - name: Content-Type
     value: application/json
-    id: pair_301ca0fcb39247d9af1f17f87203559a
+    id: pair_ffccc56fb5dc465fabbf221f8a52ddb4
 authentication:
   type: bearer
-  token: 1|DavwSHms7yUp9cq32Ji48eZsszWKROvrzz4aUFku
+  token: 1|IP26Fio5Mp3yg7eneKsfAu49FiFRhp5oayrc5q6j
 metaSortKey: -1658883636427
 isPrivate: false
 settingStoreCookies: true
