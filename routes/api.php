@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DevController;
+use App\Http\Controllers\KelasController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UjianController;
 use App\Http\Controllers\SoalController;
+use App\Http\Controllers\MatpelController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +38,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post('/soal', [ SoalController::class, 'createSoal' ]);
+    
+    Route::apiResource('kelas', KelasController::class);
+    Route::apiResource('matpel', MatpelController::class);
 });
 
 Route::apiResource('ujian', UjianController::class);
