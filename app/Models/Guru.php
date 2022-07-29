@@ -30,4 +30,14 @@ class Guru extends Model
     {
         return $this->hasMany(Ujian::class);
     }
+
+    /**
+     * Get all of the kelases for the Guru
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function kelas(): HasMany
+    {
+        return $this->hasMany(Kelas::class);
+    }
 }

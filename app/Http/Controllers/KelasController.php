@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelas;
 use App\Models\Matpel;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,11 +15,23 @@ class KelasController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if (!Auth::user()->hasRole('guru')) return abort(403);
 
+        $kelases = Auth::user()->guru->kelas;
+        $perPage = $request->query('perPage') ?? 10;
+        
+        $kelases = $kelases->map(function($kelas){
+            $kelas->enrollLink = env('FRONTEND_HOST') . '/' . 'enroll/' . $kelas->getEnrollToken();
+            return $kelas;
+        });
+
+        if ($request->query('page')) return response()->json($kelases->paginate($perPage));
+        return response()->json($kelases);
     }
 
     /**
