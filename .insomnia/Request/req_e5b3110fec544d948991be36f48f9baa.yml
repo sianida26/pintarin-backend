@@ -1,7 +1,7 @@
 _id: req_e5b3110fec544d948991be36f48f9baa
 type: Request
 parentId: fld_ae8909a37ef948bca47346a28dee521a
-modified: 1659020153918
+modified: 1659091939876
 created: 1659014226301
 url: "{{ _.basePath }}/kelas"
 name: Buat Kelas

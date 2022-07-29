@@ -1,0 +1,33 @@
+_id: req_1c8e5e0984d840108d1b9aacba416459
+type: Request
+parentId: fld_ae8909a37ef948bca47346a28dee521a
+modified: 1659137583043
+created: 1659091826753
+url: "{{ _.basePath }}/kelas"
+name: List Kelas
+description: ""
+method: GET
+body: {}
+parameters:
+  - id: pair_4f68fa1b33f04c01bb4f7898838a4f40
+    name: page
+    value: "1"
+    description: ""
+    disabled: false
+  - id: pair_0cc46d88033d464ab249eeff2319985b
+    name: perPage
+    value: "20"
+    description: ""
+    disabled: false
+headers: []
+authentication:
+  type: bearer
+  token: 78|gz8Kk6tnMwCFhlbNM8Tmj4IPCXXIZkAihFFJOpU3
+metaSortKey: -1659091826753
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
