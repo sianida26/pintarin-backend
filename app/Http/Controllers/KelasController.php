@@ -128,4 +128,27 @@ class KelasController extends Controller
         $siswa->kelas()->attach($kelas);
         return response()->json(['message' => 'Berhasil enroll kelas']);
     }
+
+    public function addSiswa(Request $request){
+        $user = Auth::user();
+        if (!$user->hasRole('guru')) return abort(403);
+
+        $guru = $user->guru;
+        $kelas = Kelas::find($request->kelas_id);
+        $siswa = Siswa::find($request->siswa_id);
+        
+        if (!$kelas) return response()->json(['message' => 'Kelas tidak ditemukan'],404);
+        if (!$siswa) return response()->json(['message' => 'Siswa tidak ditemukan'],404);
+
+        if ($kelas->guru->id !== $guru->id) 
+            return response()->json(['message' => 'Anda tidak dapat mengubah kelas guru lain'], 403);
+
+        $siswaKelas = $kelas->siswas()->firstWhere('siswa_id', $siswa->id);
+        if ($siswaKelas)
+            return $siswaKelas->pivot->is_waiting ? response()->json(['message' => 'Siswa telah berada di daftar siswa yang mengajukan kelas'], 403)
+            : response()->json(['message' => 'Siswa telah ditambahkan sebelumnya'], 403);
+
+        $siswa->kelas()->attach($kelas, ['is_waiting' => false]);
+        return response()->json(['message' => 'Berhasil menambahkan siswa'], 201);
+    }
 }

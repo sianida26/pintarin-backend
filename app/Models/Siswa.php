@@ -29,7 +29,7 @@ class Siswa extends Model
      */
     public function kelas(): BelongsToMany
     {
-        return $this->belongsToMany(Kelas::class);
+        return $this->belongsToMany(Kelas::class)->withPivot('is_waiting');
     }
     
 }
