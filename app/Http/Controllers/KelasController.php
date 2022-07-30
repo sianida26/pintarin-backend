@@ -80,9 +80,22 @@ class KelasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        //
+
+        if (!Auth::user()->hasRole('guru')) return abort(403);
+
+        $kelas = Kelas::find($id);
+
+        if (!$kelas) return response()->json([ 'message' => 'Kelas tidak ditemukan'],404);
+
+        if ($kelas->guru->id !== Auth::user()->guru->id)
+            return response()->json([ 'message' => 'Anda hanya dapat melihat detail kelas Anda sendiri'],403);
+
+        return response()->json([
+            'name' => $kelas->name,
+            'mapel' => $kelas->matpel->name,
+        ]);
     }
 
     /**

@@ -33,10 +33,10 @@ class UserSeeder extends Seeder
         }
 
         //Guru Profesional
-        if (User::where('email', 'guruprofesional@test.com')->exists()) $this->command->warn('Guru Profesional already created');
+        if (User::where('email', 'guru@test.com')->exists()) $this->command->warn('Guru Profesional already created');
         else {
             $guruProfesional = User::create([
-                'email' => 'guruprofesional@test.com',
+                'email' => 'guru@test.com',
                 'name' => "Coba Guru Profesional",
                 'password' => Hash::make("landmark"),
                 'TTL' => "__testing__",

@@ -46,6 +46,16 @@ class Kelas extends Model
     }
 
     /**
+     * Get the matpel that owns the Kelas
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function matpel(): BelongsTo
+    {
+        return $this->belongsTo(Matpel::class);
+    }
+
+    /**
      * Retrieve enroll token.
      *
      * @return string
