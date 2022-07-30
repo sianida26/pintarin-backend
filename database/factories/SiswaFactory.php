@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Guru>
  */
-class GuruFactory extends Factory
+class SiswaFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,7 +20,7 @@ class GuruFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'pendidikanTerakhir' => $this->faker->randomElement(['S1', 'S2', 'S3']),
+            // 'pendidikanTerakhir' => $this->faker->randomElement(['S1', 'S2', 'S3']),
         ];
     }
 }

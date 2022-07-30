@@ -70,6 +70,7 @@ class AuthController extends Controller
 
         if (Str::lower($request->role) === 'siswa') {
             $user->assignRole('siswa');
+            $user->siswa()->create([]);
         } else if (Str::contains(Str::lower($request->role), 'guru')) {
             $user->assignRole('guru');
             $user->guru()->create([]);

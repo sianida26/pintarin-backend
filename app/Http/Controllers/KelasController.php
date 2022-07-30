@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelas;
 use App\Models\Matpel;
-use Illuminate\Pagination\LengthAwarePaginator;
+use App\Models\Siswa;
 
+use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 
 class KelasController extends Controller
@@ -103,5 +106,26 @@ class KelasController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function enroll(Request $request){
+        $user = Auth::user();
+        if (!$user->hasRole('siswa')) return abort(403);
+        $siswa = $user->siswa;
+
+        $kelas = null;
+        try {
+            $id = Crypt::decryptString(Str::before($request->token, '-'));
+            $kelas = Kelas::findOrFail($id);
+        } catch (DecryptException $e){
+            return response()->json(['message' => 'Token tidak valid'],404);
+        }
+
+        if ($siswa->kelas()->where('kelas_id',$kelas->id)->exists())
+            return response()->json(['message' => 'Kelas sudah ter-enrol'],403);
+
+        //enroll
+        $siswa->kelas()->attach($kelas);
+        return response()->json(['message' => 'Berhasil enroll kelas']);
     }
 }

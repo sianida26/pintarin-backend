@@ -40,6 +40,9 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post('/soal', [ SoalController::class, 'createSoal' ]);
     
     Route::apiResource('kelas', KelasController::class);
+    Route::post('/kelas/enroll', [KelasController::class, 'enroll']);
+
+
     Route::apiResource('matpel', MatpelController::class);
 });
 

@@ -31,6 +31,16 @@ class Kelas extends Model
     {
         return $this->belongsTo(Guru::class);
     }
+    
+    /**
+     * The siswas that belong to the Kelas
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function siswas(): BelongsToMany
+    {
+        return $this->belongsToMany(Siswa::class);
+    }
 
     /**
      * Retrieve enroll token.

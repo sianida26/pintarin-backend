@@ -59,6 +59,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the siswa associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function siswa(): HasOne
+    {
+        return $this->hasOne(Siswa::class);
+    }
+
+    /**
      * Get the access token for the User
      * 
      * @return string

@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        //TODO: Make migration for siswas table
-        //TODO: Tanya ke mas deni
-        Schema::create('siswas', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->timestamps();
+        Schema::create('kelas_siswa', function (Blueprint $table) {
+            $table->foreignId('kelas_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('siswa_id')->constrained()->cascadeOnDelete();
+            $table->boolean('is_waiting')->default(true);
         });
     }
 
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('siswas');
+        Schema::dropIfExists('kelas_siswa');
     }
 };
