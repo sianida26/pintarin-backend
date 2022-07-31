@@ -20,7 +20,7 @@ class KelasFactory extends Factory
     {
         return [
             'name' => $this->faker->sentence(3),
-            'matpeL_id' => Matpel::all()->random()->id,
+            'matpel_id' => Matpel::all()->random()->id,
             // 'guru_id' => Guru::factory()->create(),
         ];
     }

@@ -164,4 +164,19 @@ class KelasController extends Controller
         $siswa->kelas()->attach($kelas, ['is_waiting' => false]);
         return response()->json(['message' => 'Berhasil menambahkan siswa'], 201);
     }
+
+    public function getUjians(Request $request, $id){
+        $user = Auth::user();
+
+        if (!$user->hasRole('guru')) return abort(403);
+        $guru = $user->guru;
+
+        $kelas = Kelas::findOrFail($id);
+
+        $ujians = $kelas->ujians;
+        $perPage = $request->query('perPage') ?? 10;
+
+        if ($request->query('page')) return response()->json($ujians->paginate($perPage));
+        return response()->json($ujians);
+    }
 }

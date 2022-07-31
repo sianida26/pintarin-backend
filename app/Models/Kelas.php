@@ -46,6 +46,16 @@ class Kelas extends Model
     }
 
     /**
+     * Get all of the ujians for the Kelas
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function ujians(): HasMany
+    {
+        return $this->hasMany(Ujian::class);
+    }
+
+    /**
      * Get the matpel that owns the Kelas
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

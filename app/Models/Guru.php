@@ -22,16 +22,6 @@ class Guru extends Model
     }
 
     /**
-     * Get all of the ujians for the Guru
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function ujians(): HasMany
-    {
-        return $this->hasMany(Ujian::class);
-    }
-
-    /**
      * Get all of the kelases for the Guru
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

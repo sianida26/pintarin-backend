@@ -4,39 +4,50 @@ namespace Tests\Feature\Ujian;
 
 use App\Models\User;
 use App\Models\Guru;
+use App\Models\Kelas;
 
 use Faker\Factory as Faker;
 use Tests\TestCase;
-
-const ENDPOINT_URL = '/api/ujian';
 
 // beforeAll(function(){
 //     $guru = Guru::factory()->create();
 // })
 
+beforeEach(function(){
+    $this->endpointUrl = '/api/ujian';
+    $this->guru = Guru::factory()
+         ->has(Kelas::factory())
+         ->create();
+    $this->user = $this->guru->user;
+    $this->user->assignRole('guru');
+    $this->matpelId = 1;
+
+    $this->kelas = $this->guru->kelas()->first();
+});
+
 afterEach(function(){
-    $user = User::where('email', 'LIKE', '%example%')->forceDelete();
+    // $user = User::where('email', 'LIKE', '%@example%')->forceDelete();
+
+    $this->user->forceDelete();
 });
 
 it('Should return 401 if unauthenticated', function(){
-    $response = $this->postJson(ENDPOINT_URL);
+    $response = $this->postJson($this->endpointUrl);
     $response->assertStatus(401);
 });
 
 it('Should return 200 if success', function(){
 
-    $guru = Guru::factory()->create();
-    $user = $guru->user;
-
     $response = $this
         ->withHeaders([
-            'Authorization' => 'Bearer ' . $user->getAccessToken(),
+            'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
             'Accept' => 'application/json',
         ])
-        ->postJson(ENDPOINT_URL, [
+        ->postJson($this->endpointUrl, [
             'name' => 'Coba Ujian',
             'category' => 'numerasi',
             'isUjian' => true,
+            'kelasId' => $this->kelas->id,
         ]);
 
     $response->assertStatus(200);
@@ -44,24 +55,22 @@ it('Should return 200 if success', function(){
         'name' => 'Coba Ujian',
         'category' => 'numerasi',
         'isUjian' => true,
-        'guru_id' => $guru->id,
+        'kelas_id' => $this->kelas->id,
     ]);
 });
 
 it('Should return 422 if name is empty', function(){
 
-    $guru = Guru::factory()->create();
-    $user = $guru->user;
-
     $response = $this
         ->withHeaders([
-            'Authorization' => 'Bearer ' . $user->getAccessToken(),
+            'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
             'Accept' => 'application/json',
         ])
-        ->postJson(ENDPOINT_URL, [
+        ->postJson($this->endpointUrl, [
             'name' => '',
             'category' => 'numerasi',
             'isUjian' => true,
+            'kelasId' => $this->kelas->id,
         ]);
     
     $response->assertStatus(422);
@@ -69,20 +78,18 @@ it('Should return 422 if name is empty', function(){
 });
 
 it('Should return 422 if name length is more than 255', function(){
-
-    $guru = Guru::factory()->create();
-    $user = $guru->user;
     $faker = Faker::create();
 
     $response = $this
         ->withHeaders([
-            'Authorization' => 'Bearer ' . $user->getAccessToken(),
+            'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
             'Accept' => 'application/json',
         ])
-        ->postJson(ENDPOINT_URL, [
+        ->postJson($this->endpointUrl, [
             'name' => $faker->regexify('\w{256}'),
             'category' => 'numerasi',
             'isUjian' => true,
+            'kelasId' => $this->kelas->id,
         ]);
     
     $response->assertStatus(422);
@@ -91,18 +98,16 @@ it('Should return 422 if name length is more than 255', function(){
 
 it('Should return 422 if category is not exists in enum', function(){
 
-    $guru = Guru::factory()->create();
-    $user = $guru->user;
-
     $response = $this
         ->withHeaders([
-            'Authorization' => 'Bearer ' . $user->getAccessToken(),
+            'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
             'Accept' => 'application/json',
         ])
-        ->postJson(ENDPOINT_URL, [
+        ->postJson($this->endpointUrl, [
             'name' => 'Coba Ujian',
             'category' => 'asu',
             'isUjian' => true,
+            'kelasId' => $this->kelas->id,
         ]);
 
     $response->assertStatus(422);
@@ -111,18 +116,16 @@ it('Should return 422 if category is not exists in enum', function(){
 
 it('Should return 422 if isUjian is not boolean', function(){
 
-    $guru = Guru::factory()->create();
-    $user = $guru->user;
-
     $response = $this
         ->withHeaders([
-            'Authorization' => 'Bearer ' . $user->getAccessToken(),
+            'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
             'Accept' => 'application/json',
         ])
-        ->postJson(ENDPOINT_URL, [
+        ->postJson($this->endpointUrl, [
             'name' => 'Coba Ujian',
             'category' => 'numerasi',
             'isUjian' => 'hahahaa',
+            'kelasId' => $this->kelas->id,
         ]);
 
     $response->assertStatus(422);

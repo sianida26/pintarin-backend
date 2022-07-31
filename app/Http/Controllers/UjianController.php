@@ -24,13 +24,13 @@ class UjianController extends Controller
     public function index(Request $request)
     {
         //
-        if (!Auth::user()->hasRole('guru')) return abort(404);
+        // if (!Auth::user()->hasRole('guru')) return abort(404);
 
-        $ujians = Auth::user()->guru->ujians();
-        $perPage = $request->query('perPage') ?? 10;
+        // $ujians = Auth::user()->guru->ujians();
+        // $perPage = $request->query('perPage') ?? 10;
 
-        if ($request->query('page')) return response()->json($ujians->simplePaginate($perPage));
-        return response()->json($ujians->get());
+        // if ($request->query('page')) return response()->json($ujians->simplePaginate($perPage));
+        // return response()->json($ujians->get());
     }
 
     /**
@@ -44,6 +44,7 @@ class UjianController extends Controller
         $rules = [
             'name' => 'required|max:255',
             'category' => ['required',Rule::in(['literasi','numerasi'])],
+            'kelasId' => 'required|exists:kelas,id',
             'isUjian' => 'required|boolean',
         ];
 
@@ -63,7 +64,7 @@ class UjianController extends Controller
             'name' => $request->name,
             'category' => $request->category,
             'isUjian' => $request->isUjian,
-            'guru_id' => Auth::user()->guru->id,
+            'kelas_id' => $request->kelasId,
         ]);
 
         return response()->json([ 'ujian' => $ujian ]);
