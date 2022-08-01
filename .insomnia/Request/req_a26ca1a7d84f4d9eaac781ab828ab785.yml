@@ -1,18 +1,29 @@
 _id: req_a26ca1a7d84f4d9eaac781ab828ab785
 type: Request
 parentId: fld_8a53b0ca6a48487195288013f6e1bcea
-modified: 1659091992989
+modified: 1659347598660
 created: 1658884588795
 url: "{{ _.basePath }}/auth/login"
 name: Login
-description: ""
+description: |-
+  ### Guru Komunitas
+  - Username: gurukomunitas@test.com
+  - Password: landmark
+
+  ### Guru Profesional
+  - Username: guruprofesional@test.com
+  - Password: landmark
+
+  ### Siswa
+  - Username: siswa@test.com
+  - Password: landmark
 method: POST
 body:
   mimeType: application/json
   text: |-
     {
-    	"email": "coba@gmail.com",
-    	"password": "coba123"
+    	"email": "guru@test.com",
+    	"password": "landmark"
     }
 parameters: []
 headers:

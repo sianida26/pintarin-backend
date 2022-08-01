@@ -1,7 +1,7 @@
 _id: req_4b9e38bbee9542f3ad2314e51a276bca
 type: Request
 parentId: fld_8a53b0ca6a48487195288013f6e1bcea
-modified: 1659084961298
+modified: 1659270469731
 created: 1657761044297
 url: "{{ _.basePath }}/auth/register"
 name: Register
@@ -16,11 +16,11 @@ body:
   text: |-
     {
     	"name": "Coba",
-    	"email": "coba@gmail.com",
-    	"password": "coba123",
-    	"password_confirmation": "coba123",
+    	"email": "guru@test.com",
+    	"password": "guru123",
+    	"password_confirmation": "guru123",
     	"TTL": "Malang, 8 September 1999",
-    	"role": "Guru Komunitas"
+    	"role": "guru komunitas"
     }
 parameters: []
 headers:

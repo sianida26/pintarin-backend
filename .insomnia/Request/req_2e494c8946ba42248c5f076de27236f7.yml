@@ -1,33 +1,31 @@
-_id: req_1c8e5e0984d840108d1b9aacba416459
+_id: req_2e494c8946ba42248c5f076de27236f7
 type: Request
 parentId: fld_ae8909a37ef948bca47346a28dee521a
-modified: 1659270513126
-created: 1659091826753
-url: "{{ _.basePath }}/kelas"
-name: List Kelas
+modified: 1659347634979
+created: 1659347566686
+url: "{{ _.basePath }}/kelas/1/getSiswa"
+name: Get Siswa From Kelas
 description: ""
 method: GET
 body: {}
 parameters:
-  - id: pair_4f68fa1b33f04c01bb4f7898838a4f40
+  - id: pair_801de5f5b7794009bcfcf8c046c9a49d
     name: page
     value: "1"
     description: ""
-    disabled: false
-  - id: pair_0cc46d88033d464ab249eeff2319985b
+  - id: pair_377b0aa1781e42578ee4162caa397c0b
     name: perPage
-    value: "20"
+    value: "8"
     description: ""
-    disabled: false
 headers:
-  - id: pair_750a6c2bd625409380f6cf4e27b6f115
+  - id: pair_2b7de80eb8f549b8b48001c9e4aeac68
     name: Accept
     value: application/json
     description: ""
 authentication:
   type: bearer
   token: 1|FDcoXlfZ1UzotWzJvXi2hBk7bfat3X8H8XbcMXNY
-metaSortKey: -1659199386765
+metaSortKey: -1659347566686
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true

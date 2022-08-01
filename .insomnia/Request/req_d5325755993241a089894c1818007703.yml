@@ -1,32 +1,32 @@
-_id: req_e5b3110fec544d948991be36f48f9baa
+_id: req_d5325755993241a089894c1818007703
 type: Request
 parentId: fld_ae8909a37ef948bca47346a28dee521a
-modified: 1659270493449
-created: 1659014226301
-url: "{{ _.basePath }}/kelas"
-name: Buat Kelas
+modified: 1659270100212
+created: 1659199386740
+url: "{{ _.basePath }}/kelas/addSiswa"
+name: Tambah Siswa
 description: ""
 method: POST
 body:
   mimeType: application/json
   text: |-
     {
-    	"name": "coba kelas",
-    	"matpelId": 11
+    	"siswa_id": 9999,
+    	"kelas_id": 9999
     }
 parameters: []
 headers:
-  - name: Content-Type
-    value: application/json
-    id: pair_9a691ba80f504f599ba5b9b3a44020f8
-  - id: pair_85f7796a462f4b35a7c1d5a348f0fc48
+  - id: pair_05c0eb47ede14279b5396c9cdd9502d1
     name: Accept
     value: application/json
     description: ""
+  - name: Content-Type
+    value: application/json
+    id: pair_d4cd4baecbc04953934f4b3d1524c71a
 authentication:
   type: bearer
-  token: 1|FDcoXlfZ1UzotWzJvXi2hBk7bfat3X8H8XbcMXNY
-metaSortKey: -1659199386790
+  token: 3|uDPTKdmRD057gGBaC2nySlEYdTRVR84zJtT3Y6Ym
+metaSortKey: -1659199386740
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true

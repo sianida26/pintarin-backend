@@ -1,0 +1,29 @@
+_id: req_1dc7d15109474b66b33578734bd86490
+type: Request
+parentId: fld_ae8909a37ef948bca47346a28dee521a
+modified: 1659223858263
+created: 1659223379529
+url: "{{ _.basePath }}/kelas/165"
+name: Detail Kelas
+description: |-
+  ### path
+  ```
+  /kelas/:id
+  ```
+
+  - id : id kelas
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: 62|9fHa0FormxhMJe059S2VhilBFLCrA0ylSQ8wCv2k
+metaSortKey: -1659223379529
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
