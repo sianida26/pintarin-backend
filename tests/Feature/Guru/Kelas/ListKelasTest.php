@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Ujian;
+namespace Tests\Feature\Guru\Kelas;
 
 use App\Models\Guru;
 use App\Models\Kelas;

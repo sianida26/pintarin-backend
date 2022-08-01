@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Soal;
+namespace Tests\Feature\Guru\Soal;
 
 use App\Models\Guru;
 use App\Models\Ujian;

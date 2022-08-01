@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Ujian;
+namespace Tests\Feature\Guru\Ujian;
 
 use App\Models\User;
 use App\Models\Guru;

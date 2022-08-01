@@ -1,13 +1,12 @@
 <?php
 
-namespace Tests\Feature\Kelas;
+namespace Tests\Feature\Guru\Kelas;
 
 use App\Models\Guru;
 use App\Models\Kelas;
 use App\Models\Matpel;
-use App\Models\User;
-use App\Models\Ujian;
 use App\Models\Siswa;
+use App\Models\User;
 
 use Faker\Factory as Faker;
 
@@ -20,27 +19,19 @@ beforeEach(function(){
     $this->guru = Guru::factory()
         ->has(
             Kelas::factory()
-                ->hasAttached(
-                    Siswa::factory()->count(10),
-                    ['is_waiting' => true]
-                )
-                ->hasAttached(
-                    Siswa::factory()->count(10),
-                    ['is_waiting' => false]
-                )
-        )
+                ->count(4)
+        ) 
         ->create();
     $this->user = $this->guru->user;
     $this->user->assignRole('guru');
-    
+
     $this->kelas = $this->guru->kelas()->first();
 
-    $this->endpointUrl = '/api/kelas/' . $this->kelas->id . '/getSiswa' ;
+    $this->endpointUrl = '/api/kelas/' . $this->kelas->id;
 });
 
 afterEach(function(){
-    // $user = User::where('email', 'LIKE', '%example%')->forceDelete();
-    $this->kelas->siswas->each(fn($siswa) => $siswa->user->forceDelete());
+    User::where('email', 'LIKE', '%@example%')->forceDelete();
     $this->user->forceDelete();
 });
 
@@ -66,6 +57,38 @@ it('Should return 403 if not guru', function(){
     $response->assertForbidden();
 });
 
+it('Should contains kelas name', function(){
+
+    $response = $this
+        ->withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
+        ])
+        ->get($this->endpointUrl);
+    
+    $response->assertSuccessful();
+    $response->assertJson(fn (AssertableJson $json) => 
+        $json->has('name')
+            ->etc()
+    );
+});
+
+it('Should contains kelas mapel', function(){
+
+    $response = $this
+        ->withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
+        ])
+        ->get($this->endpointUrl);
+    
+    $response->assertSuccessful();
+    $response->assertJson(fn (AssertableJson $json) => 
+        $json->has('mapel')
+            ->etc()
+    );
+});
+
 it('Should return 404 if kelas not found', function(){
 
     $response = $this
@@ -73,35 +96,25 @@ it('Should return 404 if kelas not found', function(){
             'Accept' => 'application/json',
             'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
         ])
-        ->get('/api/kelas/' . 'someInvalidId' . '/getWaitingSiswa');
+        ->get($this->endpointUrl . '99999');
     
     $response->assertNotFound();
     $response->assertJsonPath('message', 'Kelas tidak ditemukan');
 });
 
-it('Should return all data when no pages query sent', function(){
+it('Should return 403 if not user\'s kelas', function(){
+
+    $hacker = Guru::factory()
+         ->create();
+    $hacker->user->assignRole('guru');
+
     $response = $this
         ->withHeaders([
-            'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
             'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $hacker->user->getAccessToken(),
         ])
         ->get($this->endpointUrl);
-    $response->assertSuccessful();
-    $response->assertJsonCount($this->kelas->siswas()->wherePivot('is_waiting', false)->count());
-});
-
-it('Should return pagination data when pages query exists', function(){
-    $response = $this
-        ->withHeaders([
-            'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
-            'Accept' => 'application/json',
-        ])
-        ->get($this->endpointUrl . '?page=1&perPage=5');
     
-    $response->assertSuccessful();
-
-    $response->assertJson(fn (AssertableJson $json) => 
-        $json->has('data',5)
-             ->etc()
-    );
+    $response->assertForbidden();
+    $response->assertJsonPath('message', 'Anda hanya dapat melihat detail kelas Anda sendiri');
 });

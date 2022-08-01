@@ -1,12 +1,10 @@
 <?php
 
-namespace Tests\Feature\Ujian;
+namespace Tests\Feature\Guru\Matpel;
 
 use App\Models\Guru;
-use App\Models\Kelas;
-use App\Models\Matpel;
 use App\Models\User;
-use App\Models\Ujian;
+use App\Models\Matpel;
 
 use Faker\Factory as Faker;
 
@@ -16,18 +14,11 @@ use Tests\TestCase;
 
 
 beforeEach(function(){
+    $this->endpointUrl = '/api/matpel';
     $this->guru = Guru::factory()
-        ->has(
-            Kelas::factory()
-            ->has(Ujian::factory()->count(10))
-            )
         ->create();
     $this->user = $this->guru->user;
     $this->user->assignRole('guru');
-    
-    $this->kelas = $this->guru->kelas()->first();
-
-    $this->endpointUrl = '/api/kelas/' . $this->kelas->id . '/getUjians' ;
 });
 
 afterEach(function(){
@@ -67,7 +58,7 @@ it('Should return all data when no pages query sent', function(){
         ])
         ->get($this->endpointUrl);
     $response->assertSuccessful();
-    $response->assertJsonCount($this->kelas->ujians->count());
+    $response->assertJsonCount(Matpel::count());
 });
 
 it('Should return pagination data when pages query exists', function(){
@@ -76,12 +67,12 @@ it('Should return pagination data when pages query exists', function(){
             'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
             'Accept' => 'application/json',
         ])
-        ->get($this->endpointUrl . '?page=1&perPage=8');
+        ->get($this->endpointUrl . '?page=1&perPage=13');
     
     $response->assertSuccessful();
 
     $response->assertJson(fn (AssertableJson $json) => 
-        $json->has('data',8)
+        $json->has('data',13)
              ->etc()
     );
 
