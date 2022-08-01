@@ -48,6 +48,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    
+
     /**
      * Get the guru associated with the User
      *
