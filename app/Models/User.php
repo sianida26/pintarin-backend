@@ -48,6 +48,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    
+
     /**
      * Get the guru associated with the User
      *
@@ -56,6 +58,16 @@ class User extends Authenticatable
     public function guru(): HasOne
     {
         return $this->hasOne(Guru::class);
+    }
+
+    /**
+     * Get the siswa associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function siswa(): HasOne
+    {
+        return $this->hasOne(Siswa::class);
     }
 
     /**

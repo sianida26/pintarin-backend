@@ -5,21 +5,25 @@ namespace Tests\Feature\Soal;
 use App\Models\Guru;
 use App\Models\Ujian;
 use App\Models\User;
+use App\Models\Kelas;
 
 beforeEach(function(){
     $this->endpointUrl = '/api/soal';
     $this->guru = Guru::factory()
-        ->has(Ujian::factory()->count(1))
+        ->has(
+            Kelas::factory()
+                ->has(Ujian::factory())
+        )
         ->create();
     $this->user = $this->guru->user;
     $this->user->assignRole('guru');
 
-    $this->ujian = $this->guru->ujians()->first();
+    $this->ujian = $this->guru->kelas()->first()->ujians()->first();
 });
 
 afterEach(function(){
-    // $user = User::where('email', 'LIKE', '%example%')->forceDelete();
-    User::where('email', 'testing1@test.com')->forceDelete();
+    $user = User::where('email', 'LIKE', '%@example%')->forceDelete();
+    // User::where('email', 'testing1@test.com')->forceDelete();
     $this->user->forceDelete();
 });
 
@@ -79,9 +83,7 @@ it('Should return 403 if uploads into other user\'s ujian', function(){
 
     $user = User::factory()
         ->has(Guru::factory()->count(1))
-        ->create([
-            'email' => 'testing1@test.com'
-        ]);
+        ->create();
     
     $user->assignRole('guru');
 

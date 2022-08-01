@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ujians', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->enum('category',['literasi','numerasi']);
-            $table->boolean('isUjian')->default(true);
+        Schema::create('kelas_siswa', function (Blueprint $table) {
             $table->foreignId('kelas_id')->constrained()->cascadeOnDelete();
-            $table->timestamps();
-            $table->softDeletes();
+            $table->foreignId('siswa_id')->constrained()->cascadeOnDelete();
+            $table->boolean('is_waiting')->default(true);
         });
     }
 
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ujians');
+        Schema::dropIfExists('kelas_siswa');
     }
 };

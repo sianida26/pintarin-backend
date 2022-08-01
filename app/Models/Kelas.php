@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Crypt;
 
 use Faker\Factory as Faker;
@@ -30,6 +33,36 @@ class Kelas extends Model
     public function guru(): BelongsTo
     {
         return $this->belongsTo(Guru::class);
+    }
+    
+    /**
+     * The siswas that belong to the Kelas
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function siswas(): BelongsToMany
+    {
+        return $this->belongsToMany(Siswa::class)->withPivot('is_waiting');
+    }
+
+    /**
+     * Get all of the ujians for the Kelas
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function ujians(): HasMany
+    {
+        return $this->hasMany(Ujian::class);
+    }
+
+    /**
+     * Get the matpel that owns the Kelas
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function matpel(): BelongsTo
+    {
+        return $this->belongsTo(Matpel::class);
     }
 
     /**

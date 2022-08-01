@@ -13,12 +13,12 @@ class Ujian extends Model
     protected $guarded = [];
 
     /**
-     * Get the guru that owns the Ujian
+     * Get the kelas that owns the Ujian
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function guru(): BelongsTo
+    public function kelas(): BelongsTo
     {
-        return $this->belongsTo(Guru::class);
+        return $this->belongsTo(Kelas::class);
     }
 }

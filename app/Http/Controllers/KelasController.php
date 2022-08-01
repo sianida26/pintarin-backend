@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelas;
 use App\Models\Matpel;
-use Illuminate\Pagination\LengthAwarePaginator;
+use App\Models\Siswa;
 
+use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 
 class KelasController extends Controller
@@ -77,9 +80,22 @@ class KelasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        //
+
+        if (!Auth::user()->hasRole('guru')) return abort(403);
+
+        $kelas = Kelas::find($id);
+
+        if (!$kelas) return response()->json([ 'message' => 'Kelas tidak ditemukan'],404);
+
+        if ($kelas->guru->id !== Auth::user()->guru->id)
+            return response()->json([ 'message' => 'Anda hanya dapat melihat detail kelas Anda sendiri'],403);
+
+        return response()->json([
+            'name' => $kelas->name,
+            'mapel' => $kelas->matpel->name,
+        ]);
     }
 
     /**
@@ -103,5 +119,79 @@ class KelasController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function enroll(Request $request){
+        $user = Auth::user();
+        if (!$user->hasRole('siswa')) return abort(403);
+        $siswa = $user->siswa;
+
+        $kelas = null;
+        try {
+            $id = Crypt::decryptString(Str::before($request->token, '-'));
+            $kelas = Kelas::findOrFail($id);
+        } catch (DecryptException $e){
+            return response()->json(['message' => 'Token tidak valid'],404);
+        }
+
+        if ($siswa->kelas()->where('kelas_id',$kelas->id)->exists())
+            return response()->json(['message' => 'Kelas sudah ter-enrol'],403);
+
+        //enroll
+        $siswa->kelas()->attach($kelas);
+        return response()->json(['message' => 'Berhasil enroll kelas']);
+    }
+
+    public function addSiswa(Request $request){
+        $user = Auth::user();
+        if (!$user->hasRole('guru')) return abort(403);
+
+        $guru = $user->guru;
+        $kelas = Kelas::find($request->kelas_id);
+        $siswa = Siswa::find($request->siswa_id);
+        
+        if (!$kelas) return response()->json(['message' => 'Kelas tidak ditemukan'],404);
+        if (!$siswa) return response()->json(['message' => 'Siswa tidak ditemukan'],404);
+
+        if ($kelas->guru->id !== $guru->id) 
+            return response()->json(['message' => 'Anda tidak dapat mengubah kelas guru lain'], 403);
+
+        $siswaKelas = $kelas->siswas()->firstWhere('siswa_id', $siswa->id);
+        if ($siswaKelas)
+            return $siswaKelas->pivot->is_waiting ? response()->json(['message' => 'Siswa telah berada di daftar siswa yang mengajukan kelas'], 403)
+            : response()->json(['message' => 'Siswa telah ditambahkan sebelumnya'], 403);
+
+        $siswa->kelas()->attach($kelas, ['is_waiting' => false]);
+        return response()->json(['message' => 'Berhasil menambahkan siswa'], 201);
+    }
+
+    public function getUjians(Request $request, $id){
+        $user = Auth::user();
+
+        if (!$user->hasRole('guru')) return abort(403);
+        $guru = $user->guru;
+
+        $kelas = Kelas::findOrFail($id);
+
+        $ujians = $kelas->ujians;
+        $perPage = $request->query('perPage') ?? 10;
+
+        if ($request->query('page')) return response()->json($ujians->paginate($perPage));
+        return response()->json($ujians);
+    }
+
+    public function getSiswa(Request $request, $id){
+        $user = Auth::user();
+
+        if (!$user->hasRole('guru')) return abort(403);
+        $guru = $user->guru;
+
+        $kelas = Kelas::findOrFail($id);
+
+        $siswas = $kelas->siswas;
+        $perPage = $request->query('perPage') ?? 10;
+
+        if ($request->query('page')) return response()->json($siswas->paginate($perPage));
+        return response()->json($siswas);
     }
 }

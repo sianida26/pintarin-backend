@@ -39,7 +39,7 @@ class SoalController extends Controller
         }
 
         $ujian = Ujian::findOrFail($request->ujianId);
-        if ($ujian->guru->user->id !== Auth::id()) return response()->json(['message' => 'Unauthorized'], 403);
+        if ($ujian->kelas->guru->user->id !== Auth::id()) return response()->json(['message' => 'Unauthorized'], 403);
 
         //Case: Pilihan ganda (pg)
         if ($request->type === 'pg'){

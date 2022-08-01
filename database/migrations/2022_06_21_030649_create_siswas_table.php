@@ -15,10 +15,11 @@ return new class extends Migration
     {
         //TODO: Make migration for siswas table
         //TODO: Tanya ke mas deni
-        // Schema::create('siswas', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->timestamps();
-        // });
+        Schema::create('siswas', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->timestamps();
+        });
     }
 
     /**
