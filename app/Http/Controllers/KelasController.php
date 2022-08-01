@@ -179,4 +179,19 @@ class KelasController extends Controller
         if ($request->query('page')) return response()->json($ujians->paginate($perPage));
         return response()->json($ujians);
     }
+
+    public function getSiswa(Request $request, $id){
+        $user = Auth::user();
+
+        if (!$user->hasRole('guru')) return abort(403);
+        $guru = $user->guru;
+
+        $kelas = Kelas::findOrFail($id);
+
+        $siswas = $kelas->siswas;
+        $perPage = $request->query('perPage') ?? 10;
+
+        if ($request->query('page')) return response()->json($siswas->paginate($perPage));
+        return response()->json($siswas);
+    }
 }
