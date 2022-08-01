@@ -17,6 +17,7 @@ use Tests\TestCase;
 
 
 beforeEach(function(){
+    $faker = Faker::create();
     $this->guru = Guru::factory()
         ->has(
             Kelas::factory()
@@ -35,7 +36,7 @@ beforeEach(function(){
     
     $this->kelas = $this->guru->kelas()->first();
 
-    $this->endpointUrl = '/api/kelas/' . $this->kelas->id . '/getSiswa' ;
+    $this->endpointUrl = '/api/kelas/' . $this->kelas->id . '/getWaitingSiswa' ;
 });
 
 afterEach(function(){
@@ -87,7 +88,7 @@ it('Should return all data when no pages query sent', function(){
         ])
         ->get($this->endpointUrl);
     $response->assertSuccessful();
-    $response->assertJsonCount($this->kelas->siswas()->wherePivot('is_waiting', false)->count());
+    $response->assertJsonCount($this->kelas->siswas()->wherePivot('is_waiting', true)->count());
 });
 
 it('Should return pagination data when pages query exists', function(){

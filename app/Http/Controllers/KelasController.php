@@ -186,9 +186,26 @@ class KelasController extends Controller
         if (!$user->hasRole('guru')) return abort(403);
         $guru = $user->guru;
 
-        $kelas = Kelas::findOrFail($id);
+        $kelas = Kelas::find($id);
+        if (!$kelas) return response()->json(['message' => 'Kelas tidak ditemukan'], 404);
 
-        $siswas = $kelas->siswas;
+        $siswas = $kelas->siswas()->wherePivot('is_waiting',false)->get();
+        $perPage = $request->query('perPage') ?? 10;
+
+        if ($request->query('page')) return response()->json($siswas->paginate($perPage));
+        return response()->json($siswas);
+    }
+
+    public function getWaitingSiswa(Request $request, $id){
+        $user = Auth::user();
+
+        if (!$user->hasRole('guru')) return abort(403);
+        $guru = $user->guru;
+
+        $kelas = Kelas::find($id);
+        if (!$kelas) return response()->json(['message' => 'Kelas tidak ditemukan'], 404);
+
+        $siswas = $kelas->siswas()->wherePivot('is_waiting',true)->get();
         $perPage = $request->query('perPage') ?? 10;
 
         if ($request->query('page')) return response()->json($siswas->paginate($perPage));
