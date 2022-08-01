@@ -1,11 +1,12 @@
 _id: req_2e494c8946ba42248c5f076de27236f7
 type: Request
 parentId: fld_ae8909a37ef948bca47346a28dee521a
-modified: 1659347634979
+modified: 1659352475744
 created: 1659347566686
-url: "{{ _.basePath }}/kelas/1/getSiswa"
+url: "{{ _.basePath }}/kelas/178/getSiswa"
 name: Get Siswa From Kelas
-description: ""
+description: Endpoint untuk mendapatkan siswa yang telah ditambahkan ke dalam
+  kelas. Siswa yang meng-enroll tapi belum di-acc guru tidak muncul di list ini
 method: GET
 body: {}
 parameters:
@@ -24,7 +25,7 @@ headers:
     description: ""
 authentication:
   type: bearer
-  token: 1|FDcoXlfZ1UzotWzJvXi2hBk7bfat3X8H8XbcMXNY
+  token: 73|23Z3nLjRpRmsWsSdAhlmZsWWNrHSOm1CETgTdq90
 metaSortKey: -1659347566686
 isPrivate: false
 settingStoreCookies: true
