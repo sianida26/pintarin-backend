@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Matpel;
+use App\Models\Guru;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -21,7 +22,7 @@ class KelasFactory extends Factory
         return [
             'name' => $this->faker->sentence(3),
             'matpel_id' => Matpel::all()->random()->id,
-            // 'guru_id' => Guru::factory()->create(),
+            'guru_id' => Guru::factory(),
         ];
     }
 }

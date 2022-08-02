@@ -211,4 +211,15 @@ class KelasController extends Controller
         if ($request->query('page')) return response()->json($siswas->paginate($perPage));
         return response()->json($siswas);
     }
+
+    public function listKelasForSiswa(Request $request){
+        $user = Auth::user();
+
+        $siswa = $user->siswa;
+        $kelas = $siswa->kelas()->wherePivot('is_waiting', false)->get();
+        $perPage = $request->query('perPage') ?? 10;
+
+        if ($request->query('page')) return response()->json($kelas->paginate($perPage));
+        return response()->json($kelas);
+    }
 }

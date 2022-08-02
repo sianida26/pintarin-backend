@@ -40,14 +40,21 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post('/soal', [ SoalController::class, 'createSoal' ]);
     
     Route::apiResource('kelas', KelasController::class);
-    Route::post('/kelas/enroll', [KelasController::class, 'enroll']);
     Route::post('/kelas/addSiswa', [KelasController::class, 'addSiswa']);
     Route::get('/kelas/{id}/getUjians', [KelasController::class, 'getUjians']);
     Route::get('/kelas/{id}/getSiswa', [KelasController::class, 'getSiswa']);
     Route::get('/kelas/{id}/getWaitingSiswa', [KelasController::class, 'getWaitingSiswa']);
-
-
+    
     Route::apiResource('matpel', MatpelController::class);
+});
+
+Route::group(['prefix' => 'siswa', 'middleware' => ['auth:sanctum','role:siswa']], function(){
+
+    Route::group(['prefix' => 'kelas'], function(){
+        Route::get('/', [KelasController::class, 'listKelasForSiswa']);
+        Route::post('/enroll', [KelasController::class, 'enroll']);
+    });
+    
 });
 
 Route::apiResource('ujian', UjianController::class);

@@ -12,7 +12,7 @@ use App\Models\Kelas;
 use Faker\Factory as Faker;
 
 beforeEach(function(){
-    $this->endpointUrl = '/api/kelas/enroll';
+    $this->endpointUrl = '/api/siswa/kelas/enroll';
     $this->siswa = Siswa::factory()
          ->create();
     $this->user = $this->siswa->user;
