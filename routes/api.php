@@ -6,6 +6,7 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UjianController;
 use App\Http\Controllers\SoalController;
+use App\Http\Controllers\LatihanController;
 use App\Http\Controllers\MatpelController;
 
 use Illuminate\Http\Request;
@@ -54,6 +55,7 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['auth:sanctum','role:siswa']
 
     Route::group(['prefix' => 'kelas'], function(){
         Route::get('/', [KelasController::class, 'listKelasForSiswa']);
+        Route::get('/{id}/getLatihan', [LatihanController::class, 'listLatihanByKelasForSiswa']);
         Route::post('/enroll', [KelasController::class, 'enroll']);
     });
     

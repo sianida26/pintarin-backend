@@ -13,6 +13,15 @@ class Ujian extends Model
     protected $guarded = [];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'isUjian' => 'boolean',
+    ];
+
+    /**
      * Get the kelas that owns the Ujian
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

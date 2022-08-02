@@ -25,4 +25,18 @@ class UjianFactory extends Factory
             // 'guru_id' => Guru::factory()->create(),
         ];
     }
+
+    /**
+     * Indicate that the ujian is latihan.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function latihan()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'isUjian' => false,
+            ];
+        });
+    }
 }
