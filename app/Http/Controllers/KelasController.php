@@ -216,7 +216,17 @@ class KelasController extends Controller
         $user = Auth::user();
 
         $siswa = $user->siswa;
-        $kelas = $siswa->kelas()->wherePivot('is_waiting', false)->get();
+        $kelas = $siswa
+            ->kelas()
+            ->wherePivot('is_waiting', false)
+            ->get()
+            ->map(fn ($kelas) => [
+                'kelas_id' => $kelas->id,
+                'matpel_name' => $kelas->matpel->name,
+                'kelas_name' => $kelas->name,
+                'guru_name' => $kelas->guru->user->name,
+            ]);
+
         $perPage = $request->query('perPage') ?? 10;
 
         if ($request->query('page')) return response()->json($kelas->paginate($perPage));

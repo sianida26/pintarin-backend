@@ -87,3 +87,51 @@ it('Should return pagination data when pages query exists', function(){
     );
 
 });
+
+it('Should contains kelas id', function(){
+    $response = $this
+        ->withHeaders([
+            'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
+            'Accept' => 'application/json',
+        ])
+        ->get($this->endpointUrl);
+    $response->assertSuccessful();
+    $response->assertJson(fn(AssertableJson $json) =>
+        $json->first(fn ($json) =>
+            $json->has('kelas_id')
+                ->etc()
+        )
+    );
+});
+
+it('Should contains kelas name', function(){
+    $response = $this
+        ->withHeaders([
+            'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
+            'Accept' => 'application/json',
+        ])
+        ->get($this->endpointUrl);
+    $response->assertSuccessful();
+    $response->assertJson(fn(AssertableJson $json) =>
+        $json->first(fn ($json) =>
+            $json->has('kelas_name')
+                ->etc()
+        )
+    );
+});
+
+it('Should contains guru name', function(){
+    $response = $this
+        ->withHeaders([
+            'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
+            'Accept' => 'application/json',
+        ])
+        ->get($this->endpointUrl);
+    $response->assertSuccessful();
+    $response->assertJson(fn(AssertableJson $json) =>
+        $json->first(fn ($json) =>
+            $json->has('guru_name')
+                ->etc()
+        )
+    );
+});
