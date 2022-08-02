@@ -138,7 +138,7 @@ class KelasController extends Controller
             return response()->json(['message' => 'Kelas sudah ter-enrol'],403);
 
         //enroll
-        $siswa->kelas()->attach($kelas);
+        $siswa->kelas()->attach($kelas, ['is_waiting' => true]);
         return response()->json(['message' => 'Berhasil enroll kelas']);
     }
 
@@ -221,5 +221,31 @@ class KelasController extends Controller
 
         if ($request->query('page')) return response()->json($kelas->paginate($perPage));
         return response()->json($kelas);
+    }
+
+    public function acceptSiswa(Request $request){
+        $user = Auth::user();
+        $guru = $user->guru;
+        
+        if (!$user->hasRole('guru') || !$guru) return abort(403);
+
+        $kelas = Kelas::find($request->kelas_id);
+        $siswa = Siswa::find($request->siswa_id);
+        
+        if (!$kelas) return response()->json(['message' => 'Kelas tidak ditemukan'],404);
+        if (!$siswa) return response()->json(['message' => 'Siswa tidak ditemukan'],404);
+
+        if ($kelas->guru->id !== $guru->id) 
+            return response()->json(['message' => 'Anda tidak dapat mengubah kelas guru lain'], 403);
+
+        $siswaKelas = $kelas->siswas()->firstWhere('siswa_id', $siswa->id);
+        if (!$siswaKelas)
+            return response()->json(['message' => 'Siswa tidak berada di daftar siswa yang mengajukan kelas'], 404);
+
+        if (!$siswaKelas->pivot->is_waiting)
+            return response()->json(['message' => 'Siswa telah masuk di dalam kelas'], 403);
+        
+        $siswa->kelas()->updateExistingPivot($kelas->id, ['is_waiting' => false]);
+        return response()->json(['message' => 'Berhasil menerima siswa'], 200);
     }
 }

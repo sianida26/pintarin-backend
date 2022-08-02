@@ -41,6 +41,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     
     Route::apiResource('kelas', KelasController::class);
     Route::post('/kelas/addSiswa', [KelasController::class, 'addSiswa']);
+    Route::post('/kelas/acceptSiswa', [KelasController::class, 'acceptSiswa']);
     Route::get('/kelas/{id}/getUjians', [KelasController::class, 'getUjians']);
     Route::get('/kelas/{id}/getSiswa', [KelasController::class, 'getSiswa']);
     Route::get('/kelas/{id}/getWaitingSiswa', [KelasController::class, 'getWaitingSiswa']);
