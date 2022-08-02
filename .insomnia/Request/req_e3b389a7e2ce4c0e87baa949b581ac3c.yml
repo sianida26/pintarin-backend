@@ -1,0 +1,27 @@
+_id: req_e3b389a7e2ce4c0e87baa949b581ac3c
+type: Request
+parentId: fld_b7d5aaef03d1467cb8f93f72bd6362c5
+modified: 1659452632215
+created: 1659452521498
+url: "{{ _.basePath }}/siswa/latihan/804"
+name: Get Latihan By Id
+description: ""
+method: GET
+body: {}
+parameters: []
+headers:
+  - id: pair_b4a078c89f0342a79c94081c8bd63686
+    name: Accept
+    value: application/json
+    description: ""
+authentication:
+  type: bearer
+  token: 398|WiPclG8ghyghnkcumnpsCzDmJ5NFj8MumNgeZEM3
+metaSortKey: -1659452521498
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
