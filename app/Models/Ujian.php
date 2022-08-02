@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Ujian extends Model
 {
@@ -29,5 +31,15 @@ class Ujian extends Model
     public function kelas(): BelongsTo
     {
         return $this->belongsTo(Kelas::class);
+    }
+
+    /**
+     * Get all of the soals for the Ujian
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function soals(): HasMany
+    {
+        return $this->hasMany(Soal::class);
     }
 }

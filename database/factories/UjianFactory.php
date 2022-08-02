@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Guru;
+use App\Models\Kelas;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,6 +23,7 @@ class UjianFactory extends Factory
             'name' => $this->faker->sentence(3),
             'category' => $this->faker->randomElement(['literasi','numerasi']),
             'isUjian' => $this->faker->boolean(),
+            'kelas_id' => Kelas::factory(),
             // 'guru_id' => Guru::factory()->create(),
         ];
     }

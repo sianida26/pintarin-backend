@@ -58,6 +58,10 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['auth:sanctum','role:siswa']
         Route::get('/{id}/getLatihan', [LatihanController::class, 'listLatihanByKelasForSiswa']);
         Route::post('/enroll', [KelasController::class, 'enroll']);
     });
+
+    Route::group(['prefix' => 'latihan'], function(){
+        Route::get('/{id}', [LatihanController::class, 'getLatihanById']);
+    });
     
 });
 
