@@ -1,7 +1,7 @@
 _id: req_50ebe4fda5954ffdb7a1328aaa62c8d6
 type: Request
 parentId: fld_ae8909a37ef948bca47346a28dee521a
-modified: 1659411396217
+modified: 1659411563212
 created: 1659410168821
 url: "{{ _.basePath }}/kelas/acceptSiswa"
 name: Terima Siswa
@@ -11,8 +11,8 @@ body:
   mimeType: application/json
   text: |-
     {
-    	"kelas_id": 99,
-    	"siswa_id": 20
+    	"kelas_id": 9,
+    	"siswa_id": 9
     }
 parameters: []
 headers:
@@ -25,7 +25,7 @@ headers:
     description: ""
 authentication:
   type: bearer
-  token: 9|vldzNx6DRuBrV8Wd1ZUrBQy2wVcWAQLYFjJjbisl
+  token: 8|5ob7g2gILz42RuHhNiIEEZJ6HKDSmq180w5xv5IQ
 metaSortKey: -1659410168821
 isPrivate: false
 settingStoreCookies: true

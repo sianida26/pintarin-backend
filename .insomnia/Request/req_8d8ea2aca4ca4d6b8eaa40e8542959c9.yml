@@ -1,33 +1,33 @@
-_id: req_4535cbd3903b41ccbde5f321fa3d4ba6
+_id: req_8d8ea2aca4ca4d6b8eaa40e8542959c9
 type: Request
-parentId: fld_425d6c920b9a45f797099da174289f6c
-modified: 1659411622340
-created: 1659016789281
-url: "{{ _.basePath }}/matpel"
-name: Get All Matpel
+parentId: fld_b7d5aaef03d1467cb8f93f72bd6362c5
+modified: 1659418489497
+created: 1659417211966
+url: "{{ _.basePath }}/siswa/kelas/9/getLatihan"
+name: List Latihan By Kelas
 description: ""
 method: GET
 body: {}
 parameters:
-  - id: pair_395a7afb2e7e49e5a482bff1651e8696
+  - id: pair_2ac19af69b0147cbaf66fd813396aef2
     name: page
-    value: "2"
+    value: "1"
     description: ""
     disabled: true
-  - id: pair_d529a52d17864e27a1d5ad5b51a6b3aa
+  - id: pair_7546f1b29c084c88a3c609e9706da3ad
     name: perPage
     value: "10"
     description: ""
     disabled: true
 headers:
-  - id: pair_fd076a49b31846d79e4134d7d16d41e5
+  - id: pair_d33a890f662c470b94dfd220a42c0b9c
     name: Accept
     value: application/json
     description: ""
 authentication:
   type: bearer
-  token: 8|5ob7g2gILz42RuHhNiIEEZJ6HKDSmq180w5xv5IQ
-metaSortKey: -1659016789281
+  token: 9|vldzNx6DRuBrV8Wd1ZUrBQy2wVcWAQLYFjJjbisl
+metaSortKey: -1659417211966
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true
