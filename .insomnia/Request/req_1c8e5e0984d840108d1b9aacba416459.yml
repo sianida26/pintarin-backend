@@ -1,7 +1,7 @@
 _id: req_1c8e5e0984d840108d1b9aacba416459
 type: Request
 parentId: fld_ae8909a37ef948bca47346a28dee521a
-modified: 1659352454216
+modified: 1659410591887
 created: 1659091826753
 url: "{{ _.basePath }}/kelas"
 name: List Kelas
@@ -26,7 +26,7 @@ headers:
     description: ""
 authentication:
   type: bearer
-  token: 73|23Z3nLjRpRmsWsSdAhlmZsWWNrHSOm1CETgTdq90
+  token: 8|5ob7g2gILz42RuHhNiIEEZJ6HKDSmq180w5xv5IQ
 metaSortKey: -1659199386765
 isPrivate: false
 settingStoreCookies: true

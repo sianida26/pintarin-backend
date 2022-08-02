@@ -1,0 +1,29 @@
+_id: req_9647a4ee5ed844308a091dc5d159b577
+type: Request
+parentId: fld_9005f5ca103d45c0850a8639511de049
+modified: 1659410223758
+created: 1659354727091
+url: "{{ _.basePath }}/siswa/kelas/"
+name: Get My Kelas
+description: Endpoint ini mengirim data kelas pada siswa yang request. Kelas
+  yang muncul hanya kelas yang telah diterima atau ditambahkan oleh guru. Kelas
+  yang belum diacc guru tidak muncul di sini
+method: GET
+body: {}
+parameters: []
+headers:
+  - id: pair_dd5d86cd4a2e4b6692b85b3547f6abc1
+    name: Accept
+    value: application/json
+    description: ""
+authentication:
+  type: bearer
+  token: 9|vldzNx6DRuBrV8Wd1ZUrBQy2wVcWAQLYFjJjbisl
+metaSortKey: -1659354727091
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
