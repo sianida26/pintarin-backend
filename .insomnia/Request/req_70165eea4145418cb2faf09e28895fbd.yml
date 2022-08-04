@@ -1,0 +1,31 @@
+_id: req_70165eea4145418cb2faf09e28895fbd
+type: Request
+parentId: fld_53847aafa05a469c88e99f1b468d5c3e
+modified: 1659606703542
+created: 1659605952553
+url: "{{ _.basePath }}/ujian"
+name: Get My Ujian and Latihan
+description: ""
+method: GET
+body: {}
+parameters:
+  - id: pair_ef2332e3ebd54ae396e69dec7cad19f2
+    name: page
+    value: "1"
+    description: ""
+  - id: pair_aa91def9cf1b446498567df67676e7ed
+    name: perPage
+    value: "5"
+    description: ""
+headers: []
+authentication:
+  type: bearer
+  token: 684|7bkvM1dCbK8HQ39Kdz2hVSZD9aeHZSu7PkRAhcAv
+metaSortKey: -1659605952553
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,7 +1,7 @@
 _id: req_76ae1a4d871f42d0bc8caf97ad860b03
 type: Request
 parentId: fld_42239c0d886443778045f6f557e05f1f
-modified: 1658933857974
+modified: 1659517493855
 created: 1658932723537
 url: "{{ _.basePath }}/soal"
 name: Buat Soal
@@ -37,7 +37,7 @@ headers:
     description: ""
 authentication:
   type: bearer
-  token: 1|IP26Fio5Mp3yg7eneKsfAu49FiFRhp5oayrc5q6j
+  token: 8|5ob7g2gILz42RuHhNiIEEZJ6HKDSmq180w5xv5IQ
 metaSortKey: -1658932723537
 isPrivate: false
 settingStoreCookies: true

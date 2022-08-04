@@ -1,7 +1,7 @@
 _id: req_1c8e5e0984d840108d1b9aacba416459
 type: Request
 parentId: fld_ae8909a37ef948bca47346a28dee521a
-modified: 1659410591887
+modified: 1659512078852
 created: 1659091826753
 url: "{{ _.basePath }}/kelas"
 name: List Kelas

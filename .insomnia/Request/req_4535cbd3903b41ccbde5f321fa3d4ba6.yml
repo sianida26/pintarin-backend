@@ -1,7 +1,7 @@
 _id: req_4535cbd3903b41ccbde5f321fa3d4ba6
 type: Request
 parentId: fld_425d6c920b9a45f797099da174289f6c
-modified: 1659411622340
+modified: 1659587864287
 created: 1659016789281
 url: "{{ _.basePath }}/matpel"
 name: Get All Matpel
