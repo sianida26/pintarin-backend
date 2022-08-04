@@ -29,8 +29,13 @@ class KelasController extends Controller
         $perPage = $request->query('perPage') ?? 10;
         
         $kelases = $kelases->map(function($kelas){
-            $kelas->enrollLink = env('FRONTEND_HOST') . '/' . 'enroll/' . $kelas->getEnrollToken();
-            return $kelas;
+            $enrollLink = env('FRONTEND_HOST') . '/' . 'enroll/' . $kelas->getEnrollToken();
+            return [
+                'id' => $kelas->id,
+                'name' => $kelas->name,
+                'countSiswa' => $kelas->siswas()->wherePivot('is_waiting',false)->count(),
+                'enrollLink' => $enrollLink
+            ];
         });
 
         if ($request->query('page')) return response()->json($kelases->paginate($perPage));

@@ -97,3 +97,57 @@ it('Should contains enroll link', function(){
     );
 
 });
+
+it('Should contains kelas id', function(){
+    $response = $this
+        ->withHeaders([
+            'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
+            'Accept' => 'application/json',
+        ])
+        ->get($this->endpointUrl);
+    
+    $response->assertSuccessful();
+
+    $response->assertJson(fn (AssertableJson $json) => 
+        $json->whereAllType([
+            '0.id' => 'integer',
+        ])
+    );
+
+});
+
+it('Should contains nama kelas', function(){
+    $response = $this
+        ->withHeaders([
+            'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
+            'Accept' => 'application/json',
+        ])
+        ->get($this->endpointUrl);
+    
+    $response->assertSuccessful();
+
+    $response->assertJson(fn (AssertableJson $json) => 
+        $json->whereAllType([
+            '0.name' => 'string',
+        ])
+    );
+
+});
+
+it('Should contains jumlah siswa yang terdaftar', function(){
+    $response = $this
+        ->withHeaders([
+            'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
+            'Accept' => 'application/json',
+        ])
+        ->get($this->endpointUrl);
+    
+    $response->assertSuccessful();
+
+    $response->assertJson(fn (AssertableJson $json) => 
+        $json->whereAllType([
+            '0.countSiswa' => 'integer',
+        ])
+    );
+
+});
