@@ -12,6 +12,17 @@ class UjianResult extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'answers' =>'array',
+    ];
+
     /**
      * Get the siswa that owns the UjianResult
      *

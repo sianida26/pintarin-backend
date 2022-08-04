@@ -55,4 +55,56 @@ class SoalFactory extends Factory
             'ujian_id' => Ujian::factory(),
         ];
     }
+
+    public function pgk(){
+        return $this->state(function(array $attributes){
+            $jawabans = collect([
+                [
+                    'id' => 0,
+                    'content' => $this->faker->sentence(7),
+                    'isCorrect' => false,
+                ],
+                [
+                    'id' => 1,
+                    'content' => $this->faker->sentence(7),
+                    'isCorrect' => true,
+                ],
+                [
+                    'id' => 2,
+                    'content' => $this->faker->sentence(7),
+                    'isCorrect' => false,
+                ],
+                [
+                    'id' => 3,
+                    'content' => $this->faker->sentence(7),
+                    'isCorrect' => true,
+                ],
+                [
+                    'id' => 4,
+                    'content' => $this->faker->sentence(7),
+                    'isCorrect' => false,
+                ],
+            ]);
+            return [
+                'type' => 'pgk',
+                'answers' => $jawabans,
+            ];
+        });
+    }
+
+    public function isian(){
+
+        return $this->state(fn (array $attributes) => [
+            'type' => 'isian',
+            'answers' => [$this->faker->sentence(7)],
+        ]);
+    }
+
+    public function uraian(){
+
+        return $this->state(fn (array $attributes) => [
+            'type' => 'uraian',
+            'answers' => [$this->faker->sentence(30)],
+        ]);
+    }
 }
