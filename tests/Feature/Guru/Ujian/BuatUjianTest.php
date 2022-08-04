@@ -47,7 +47,6 @@ it('Should return 200 if success', function(){
             'name' => 'Coba Ujian',
             'category' => 'numerasi',
             'isUjian' => true,
-            'kelasId' => $this->kelas->id,
         ]);
 
     $response->assertStatus(200);
@@ -55,7 +54,7 @@ it('Should return 200 if success', function(){
         'name' => 'Coba Ujian',
         'category' => 'numerasi',
         'isUjian' => true,
-        'kelas_id' => $this->kelas->id,
+        'guru_id' => $this->guru->id,
     ]);
 });
 

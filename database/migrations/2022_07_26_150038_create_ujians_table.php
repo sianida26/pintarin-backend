@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->enum('category',['literasi','numerasi']);
             $table->boolean('isUjian')->default(true);
-            $table->foreignId('kelas_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('guru_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });

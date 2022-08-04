@@ -31,5 +31,15 @@ class Siswa extends Model
     {
         return $this->belongsToMany(Kelas::class)->withPivot('is_waiting');
     }
+
+    /**
+     * Get all of the ujianResult for the Siswa
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function ujianResults(): HasMany
+    {
+        return $this->hasMany(UjianResult::class);
+    }
     
 }

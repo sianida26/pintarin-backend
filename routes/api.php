@@ -61,6 +61,7 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['auth:sanctum','role:siswa']
 
     Route::group(['prefix' => 'latihan'], function(){
         Route::get('/{id}', [LatihanController::class, 'getLatihanById']);
+        Route::post('/submit', [LatihanController::class, 'submit']);
     });
     
 });
