@@ -37,7 +37,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['middleware' => 'auth:sanctum'], function(){
+Route::group(['middleware' => ['auth:sanctum', 'role:guru']], function(){
     Route::post('/soal', [ SoalController::class, 'createSoal' ]);
     
     Route::apiResource('kelas', KelasController::class);
@@ -47,6 +47,10 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('/kelas/{id}/getUjians', [KelasController::class, 'getUjians']);
     Route::get('/kelas/{id}/getSiswa', [KelasController::class, 'getSiswa']);
     Route::get('/kelas/{id}/getWaitingSiswa', [KelasController::class, 'getWaitingSiswa']);
+
+    Route::group(['prefix' => 'ujian'], function(){
+        Route::get('/', [UjianController::class, 'index']);
+    });
     
     Route::apiResource('matpel', MatpelController::class);
 });

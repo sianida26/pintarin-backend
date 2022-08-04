@@ -31,6 +31,27 @@ class UjianController extends Controller
 
         // if ($request->query('page')) return response()->json($ujians->simplePaginate($perPage));
         // return response()->json($ujians->get());
+
+        //Role Guru
+        $user = Auth::user();
+        if ($user->hasRole('guru')){
+            $guru = $user->guru;
+            $ujians = $guru
+                ->ujians
+                ->map(
+                    fn($ujian) => [
+                        'id' => $ujian->id,
+                        'name' => $ujian->name,
+                        'category' => $ujian->category,
+                        'type' => $ujian->isUjian ? 'ujian' : 'latihan',
+                    ]
+                );
+            
+            $perPage = $request->query('perPage') ?? 10;
+            if ($request->query('page')) return response()->json($ujians->paginate($perPage));
+            return response()->json($ujians);
+        }
+        else return abort(403);
     }
 
     /**
