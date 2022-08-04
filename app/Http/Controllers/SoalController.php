@@ -39,7 +39,7 @@ class SoalController extends Controller
         }
 
         $ujian = Ujian::findOrFail($request->ujianId);
-        if ($ujian->kelas->guru->user->id !== Auth::id()) return response()->json(['message' => 'Unauthorized'], 403);
+        if ($ujian->guru->user->id !== Auth::id()) return response()->json(['message' => 'Unauthorized'], 403);
 
         //Case: Pilihan ganda (pg)
         if ($request->type === 'pg'){
@@ -52,7 +52,12 @@ class SoalController extends Controller
                 return response()->json(['errors' => $validator->errors(), 'message' => 'Terdapat data yang tidak sesuai. Silakan coba lagi'], 422);
             }
 
-            $jawabans = collect($request->jawabans);
+            $jawabans = collect($request->jawabans)
+                ->map(fn($jawaban,$index) => [
+                    'id' => $index,
+                    'content' => $jawaban['content'],
+                    'isCorrect' => $jawaban['isCorrect'],
+                ]);
 
             if (!$jawabans->contains('isCorrect',true)) return response()->json(['errors' => [ 'jawabans' => ['Setidaknya harus ada 1 jawaban yang benar'] ], 'message' => 'Terdapat data yang tidak sesuai. Silakan coba lagi'], 422);
 
@@ -60,7 +65,7 @@ class SoalController extends Controller
                 'soal' => $request->soal,
                 'bobot' => $request->bobot,
                 'type' => 'pg',
-                'answers' => collect($request->jawabans)->toJson(),
+                'answers' => $jawabans,
                 'ujian_id' => $request->ujianId,
             ]);
 

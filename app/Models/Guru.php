@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Guru extends Model
@@ -29,5 +30,15 @@ class Guru extends Model
     public function kelas(): HasMany
     {
         return $this->hasMany(Kelas::class);
+    }
+
+    /**
+     * The ujians that belong to the Guru
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function ujians(): HasMany
+    {
+        return $this->hasMany(Ujian::class);
     }
 }

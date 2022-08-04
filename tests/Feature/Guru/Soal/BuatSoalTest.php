@@ -11,14 +11,13 @@ beforeEach(function(){
     $this->endpointUrl = '/api/soal';
     $this->guru = Guru::factory()
         ->has(
-            Kelas::factory()
-                ->has(Ujian::factory())
+            Ujian::factory()
         )
         ->create();
     $this->user = $this->guru->user;
     $this->user->assignRole('guru');
 
-    $this->ujian = $this->guru->kelas()->first()->ujians()->first();
+    $this->ujian = $this->guru->ujians()->first();
 });
 
 afterEach(function(){

@@ -23,8 +23,7 @@ class UjianFactory extends Factory
             'name' => $this->faker->sentence(3),
             'category' => $this->faker->randomElement(['literasi','numerasi']),
             'isUjian' => $this->faker->boolean(),
-            'kelas_id' => Kelas::factory(),
-            // 'guru_id' => Guru::factory()->create(),
+            'guru_id' => Guru::factory(),
         ];
     }
 

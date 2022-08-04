@@ -18,20 +18,35 @@ use Tests\TestCase;
 beforeEach(function(){
     $this->guru = Guru::factory()
         ->has(
-            Kelas::factory()
-            ->has(Ujian::factory()->count(10))
-            )
+            Ujian::factory()
+                ->hasAttached(Kelas::factory()->count(10))
+                ->count(10)
+        )
         ->create();
     $this->user = $this->guru->user;
     $this->user->assignRole('guru');
+
+    $this->kelas = Kelas::factory()
+        ->state(['guru_id' => $this->guru->id ])
+        ->create();
     
-    $this->kelas = $this->guru->kelas()->first();
+    $this->kelas
+        ->ujians()
+        ->sync(
+            $this->guru
+                ->ujians
+                ->map(
+                    fn($ujian) => $ujian->id
+                )
+                ->shuffle()
+                ->take(6)
+        );
 
     $this->endpointUrl = '/api/kelas/' . $this->kelas->id . '/getUjians' ;
 });
 
 afterEach(function(){
-    // $user = User::where('email', 'LIKE', '%example%')->forceDelete();
+    $user = User::where('email', 'LIKE', '%example%')->forceDelete();
     $this->user->forceDelete();
 });
 
@@ -67,7 +82,7 @@ it('Should return all data when no pages query sent', function(){
         ])
         ->get($this->endpointUrl);
     $response->assertSuccessful();
-    $response->assertJsonCount($this->kelas->ujians->count());
+    $response->assertJsonCount(6);
 });
 
 it('Should return pagination data when pages query exists', function(){
@@ -76,12 +91,12 @@ it('Should return pagination data when pages query exists', function(){
             'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
             'Accept' => 'application/json',
         ])
-        ->get($this->endpointUrl . '?page=1&perPage=8');
+        ->get($this->endpointUrl . '?page=1&perPage=3');
     
     $response->assertSuccessful();
 
     $response->assertJson(fn (AssertableJson $json) => 
-        $json->has('data',8)
+        $json->has('data',3)
              ->etc()
     );
 

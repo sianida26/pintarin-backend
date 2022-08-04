@@ -113,7 +113,7 @@ it('Should contains soal', function(){
     );
 });
 
-it('Should contains only soal and answers for pg type', function(){
+it('Should contains soal and answers for pg type', function(){
     $response = $this
         ->withHeaders([
             'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
@@ -126,6 +126,24 @@ it('Should contains only soal and answers for pg type', function(){
             $json->has('data', $this->ujian->soals()->count(), fn($json)=>
                 $json->has('soal')
                     ->has('jawabans')
+                    ->etc()
+                )
+                ->etc()
+    );
+});
+
+it('Should contains soal id', function(){
+    $response = $this
+        ->withHeaders([
+            'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
+            'Accept' => 'application/json',
+        ])
+        ->get($this->endpointUrl);
+    $response->assertSuccessful();
+    $response
+        ->assertJson(fn(AssertableJson $json) =>
+            $json->has('data', $this->ujian->soals()->count(), fn($json)=>
+                $json->has('soal_id')
                     ->etc()
                 )
                 ->etc()

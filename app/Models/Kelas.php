@@ -46,13 +46,13 @@ class Kelas extends Model
     }
 
     /**
-     * Get all of the ujians for the Kelas
+     * The ujians that belong to the Kelas
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function ujians(): HasMany
+    public function ujians(): BelongsToMany
     {
-        return $this->hasMany(Ujian::class);
+        return $this->belongsToMany(Ujian::class);
     }
 
     /**

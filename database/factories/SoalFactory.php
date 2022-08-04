@@ -21,22 +21,27 @@ class SoalFactory extends Factory
 
         $jawabans = collect([
             [
+                'id' => 0,
                 'content' => $this->faker->sentence(7),
                 'isCorrect' => false,
             ],
             [
+                'id' => 1,
                 'content' => $this->faker->sentence(7),
                 'isCorrect' => true,
             ],
             [
+                'id' => 2,
                 'content' => $this->faker->sentence(7),
                 'isCorrect' => false,
             ],
             [
+                'id' => 3,
                 'content' => $this->faker->sentence(7),
                 'isCorrect' => false,
             ],
             [
+                'id' => 4,
                 'content' => $this->faker->sentence(7),
                 'isCorrect' => false,
             ],
@@ -46,7 +51,7 @@ class SoalFactory extends Factory
             'soal' => $this->faker->sentence(30),
             'bobot' => 3,
             'type' => 'pg',
-            'answers' => collect($jawabans)->toJson(),
+            'answers' => $jawabans,
             'ujian_id' => Ujian::factory(),
         ];
     }

@@ -41,10 +41,15 @@ class UjianController extends Controller
      */
     public function store(Request $request)
     {
+
+        $user = Auth::user();
+        $guru = $user->guru;
+
+        if (!$guru) return abort(403);
+
         $rules = [
             'name' => 'required|max:255',
             'category' => ['required',Rule::in(['literasi','numerasi'])],
-            'kelasId' => 'required|exists:kelas,id',
             'isUjian' => 'required|boolean',
         ];
 
@@ -64,7 +69,7 @@ class UjianController extends Controller
             'name' => $request->name,
             'category' => $request->category,
             'isUjian' => $request->isUjian,
-            'kelas_id' => $request->kelasId,
+            'guru_id' => $guru->id,
         ]);
 
         return response()->json([ 'ujian' => $ujian ]);

@@ -24,13 +24,23 @@ class Ujian extends Model
     ];
 
     /**
-     * Get the kelas that owns the Ujian
+     * Get the guru that owns the Ujian
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function kelas(): BelongsTo
+    public function guru(): BelongsTo
     {
-        return $this->belongsTo(Kelas::class);
+        return $this->belongsTo(Guru::class);
+    }
+
+    /**
+     * The kelas that belong to the Ujian
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function kelas(): BelongsToMany
+    {
+        return $this->belongsToMany(Kelas::class);
     }
 
     /**
@@ -41,5 +51,15 @@ class Ujian extends Model
     public function soals(): HasMany
     {
         return $this->hasMany(Soal::class);
+    }
+
+    /**
+     * Get all of the ujianResult for the Ujian
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function ujianResults(): HasMany
+    {
+        return $this->hasMany(UjianResult::class);
     }
 }

@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('siswas', function (Blueprint $table) {
+        Schema::create('ujian_results', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->unsignedBigInteger('nis')->nullable();
+            $table->foreignId('siswa_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('ujian_id')->constrained()->cascadeOnDelete();
+            $table->bigInteger('nilai')->nullable();
+            $table->text('answers');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('siswas');
+        Schema::dropIfExists('ujian_results');
     }
 };
