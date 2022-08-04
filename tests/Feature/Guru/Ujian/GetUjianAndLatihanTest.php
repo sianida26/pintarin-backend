@@ -22,8 +22,8 @@ beforeEach(function(){
             Ujian::factory()
                 ->count(20)
                 ->state(new Sequence(
-                    ['isUjian' => true,'guru_id' => $guru->id],
-                    ['isUjian' => false,'guru_id' => $guru->id],
+                    ['isUjian' => true],
+                    ['isUjian' => false],
                 ))
         )
         ->create();
