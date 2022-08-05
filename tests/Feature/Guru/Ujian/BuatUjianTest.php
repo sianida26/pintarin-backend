@@ -16,17 +16,14 @@ use Tests\TestCase;
 beforeEach(function(){
     $this->endpointUrl = '/api/ujian';
     $this->guru = Guru::factory()
-         ->has(Kelas::factory())
          ->create();
     $this->user = $this->guru->user;
     $this->user->assignRole('guru');
     $this->matpelId = 1;
-
-    $this->kelas = $this->guru->kelas()->first();
 });
 
 afterEach(function(){
-    // $user = User::where('email', 'LIKE', '%@example%')->forceDelete();
+    $user = User::where('email', 'LIKE', '%@example%')->forceDelete();
 
     $this->user->forceDelete();
 });
@@ -69,7 +66,6 @@ it('Should return 422 if name is empty', function(){
             'name' => '',
             'category' => 'numerasi',
             'isUjian' => true,
-            'kelasId' => $this->kelas->id,
         ]);
     
     $response->assertStatus(422);
@@ -88,7 +84,6 @@ it('Should return 422 if name length is more than 255', function(){
             'name' => $faker->regexify('\w{256}'),
             'category' => 'numerasi',
             'isUjian' => true,
-            'kelasId' => $this->kelas->id,
         ]);
     
     $response->assertStatus(422);
@@ -106,7 +101,6 @@ it('Should return 422 if category is not exists in enum', function(){
             'name' => 'Coba Ujian',
             'category' => 'asu',
             'isUjian' => true,
-            'kelasId' => $this->kelas->id,
         ]);
 
     $response->assertStatus(422);
@@ -124,9 +118,25 @@ it('Should return 422 if isUjian is not boolean', function(){
             'name' => 'Coba Ujian',
             'category' => 'numerasi',
             'isUjian' => 'hahahaa',
-            'kelasId' => $this->kelas->id,
         ]);
 
     $response->assertStatus(422);
     $response->assertJsonPath('errors.isUjian.0','Harus berupa boolean');
+});
+
+it('Should return ujian id if success', function(){
+
+    $response = $this
+        ->withHeaders([
+            'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
+            'Accept' => 'application/json',
+        ])
+        ->postJson($this->endpointUrl, [
+            'name' => 'Coba Ujian',
+            'category' => 'numerasi',
+            'isUjian' => true,
+        ]);
+
+    $response->assertStatus(200);
+    $response->assertJsonPath("id", $this->guru->ujians()->first()->id);
 });

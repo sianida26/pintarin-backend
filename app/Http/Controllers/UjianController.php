@@ -93,7 +93,7 @@ class UjianController extends Controller
             'guru_id' => $guru->id,
         ]);
 
-        return response()->json([ 'ujian' => $ujian ]);
+        return response()->json([ 'id' => $ujian->id ]);
     }
 
     /**
