@@ -50,6 +50,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:guru']], function(){
 
     Route::group(['prefix' => 'ujian'], function(){
         Route::get('/', [UjianController::class, 'index']);
+        Route::post('/edit/{id}', [UjianController::class, 'edit']);
     });
     
     Route::apiResource('matpel', MatpelController::class);

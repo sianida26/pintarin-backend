@@ -129,4 +129,41 @@ class UjianController extends Controller
     {
         //
     }
+
+    public function edit(Request $request, $id)
+    {
+
+        $user = Auth::user();
+        $guru = $user->guru;
+        $ujian = Ujian::find($id);
+
+        abort_if(!$ujian, 404, 'Ujian tidak ditemukan');
+        abort_if($ujian->guru->id !== $guru->id, 403, "Anda tidak dapat mengedit ujian orang lain!");
+
+        $rules = [
+            'name' => 'required|max:255',
+            'category' => ['required',Rule::in(['literasi','numerasi'])],
+            'isUjian' => 'required|boolean',
+        ];
+
+        $messages = [
+            'required' => 'Harus diisi',
+            'max' => 'Maksimal :max karakter',
+            'in' => 'Harus berupa literasi atau numerasi',
+            'boolean' => 'Harus berupa boolean',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors(), 'message' => 'Terdapat data yang tidak sesuai. Silakan coba lagi'], 422);
+        }
+
+        $ujian->update([
+            'name' => $request->name,
+            'category' => $request->category,
+            'isUjian' => $request->isUjian,
+        ]);
+
+        return response()->json([ 'id' => $ujian->id ]);
+    }
 }
