@@ -51,6 +51,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:guru']], function(){
         Route::get('/', [UjianController::class, 'index']);
         Route::get('/{id}', [UjianController::class, 'show']);
         Route::post('/edit/{id}', [UjianController::class, 'edit']);
+        Route::post('/delete/{id}', [UjianController::class, 'delete']);
     });
 
     Route::group(['prefix' => 'soal'], function(){

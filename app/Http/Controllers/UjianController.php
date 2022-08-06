@@ -187,4 +187,20 @@ class UjianController extends Controller
 
         return response()->json([ 'id' => $ujian->id ]);
     }
+
+    public function delete(Request $request, $id){
+
+        $user = Auth::user();
+        $guru = $user->guru;
+
+        if (!$guru) return abort(403);
+
+        $ujian = Ujian::find($id);
+        if (!$ujian) return abort(404, "Ujian tidak ditemukan");
+
+        if ($ujian->guru->id !== $guru->id) return abort(403, "Anda tidak dapat menghapus ujian orang lain!");
+
+        $ujian->delete();
+        return response()->json(['message' => 'Ujian berhasil dihapus!']);
+    }
 }
