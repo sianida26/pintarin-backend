@@ -122,7 +122,7 @@ class UjianController extends Controller
         return response()->json([
             'id' => $ujian->id,
             'category' => $ujian->category,
-            'type' => $ujian->type,
+            'type' => $ujian->isUjian ? "ujian" : "latihan",
             'name' => $ujian->name,
             'soals' => $soals
         ]);
