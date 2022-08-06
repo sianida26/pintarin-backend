@@ -83,6 +83,6 @@ class SoalController extends Controller
 
         $url = $request->file('file')->store('/','soal');
 
-        return response()->json(['url' => $request->getHttpHost() . Storage::url('soal/' . $url)]);
+        return response()->json(['url' => $request->getSchemeAndHttpHost() . Storage::url('soal/' . $url)]);
     }
 }
