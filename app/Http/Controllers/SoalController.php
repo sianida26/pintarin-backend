@@ -361,4 +361,20 @@ class SoalController extends Controller
 
         return response()->json(['url' => $request->getSchemeAndHttpHost() . Storage::url('soal/' . $url)]);
     }
+
+    public function deleteSoal(Request $request, $id){
+
+        $user = Auth::user();
+        $guru = $user->guru;
+
+        if (!$guru) return abort(403);
+
+        $soal = Soal::find($id);
+        if (!$soal) return abort(404, "Soal tidak ditemukan");
+
+        if ($soal->ujian->guru->id !== $guru->id) return abort(403, "Anda tidak dapat menghapus soal orang lain!");
+
+        $soal->delete();
+        return response()->json(['message' => 'Soal berhasil dihapus!']);
+    }
 }
