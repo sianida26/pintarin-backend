@@ -38,7 +38,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => ['auth:sanctum', 'role:guru']], function(){
-    Route::post('/soal', [ SoalController::class, 'createSoal' ]);
     
     Route::apiResource('kelas', KelasController::class);
     Route::post('/kelas/addSiswa', [KelasController::class, 'addSiswa']);
@@ -52,6 +51,11 @@ Route::group(['middleware' => ['auth:sanctum', 'role:guru']], function(){
         Route::get('/', [UjianController::class, 'index']);
         Route::get('/{id}', [UjianController::class, 'show']);
         Route::post('/edit/{id}', [UjianController::class, 'edit']);
+    });
+
+    Route::group(['prefix' => 'soal'], function(){
+        Route::post('/', [ SoalController::class, 'createSoal' ]);
+        Route::post('/uploadImage', [ SoalController::class, 'uploadImage' ]);
     });
     
     Route::apiResource('matpel', MatpelController::class);

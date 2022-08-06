@@ -72,4 +72,16 @@ class SoalController extends Controller
             return response()->json(['message' => 'Soal berhasil dibuat']);
         }
     }
+
+    public function uploadImage(Request $request){
+
+        $user = Auth::user();
+        $guru = $user->guru;
+
+        if (!$guru) return abort(403);
+
+        $url = $request->file('file')->store('soal');
+
+        return response()->json(['url' => $url]);
+    }
 }
