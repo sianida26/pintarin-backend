@@ -2,3 +2,4 @@
 deployment:
  tasks:
  - export DEPLOYPATH=/home/u1094013/
+ - php artisan optimize:clear
