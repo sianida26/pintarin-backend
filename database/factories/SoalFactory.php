@@ -92,6 +92,13 @@ class SoalFactory extends Factory
         });
     }
 
+    public function menjodohkan(){
+        return $this->state(fn (array $attributes) => [
+            'type' => 'menjodohkan',
+            'answers' => [$this->faker->sentence(7)],
+        ]);
+    }
+
     public function isian(){
 
         return $this->state(fn (array $attributes) => [

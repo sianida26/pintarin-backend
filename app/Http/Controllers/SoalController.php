@@ -171,6 +171,31 @@ class SoalController extends Controller
         }
     }
 
+    public function detailSoal(Request $request, $id){
+
+        $user = Auth::user();
+        $guru = $user->guru;
+        if(!$guru) return abort(403);
+
+        $soal = Soal::find($id);
+        if(!$soal) return abort(404, "Soal tidak ditemukan");
+
+        if($soal->ujian->guru->id !== $guru->id) return abort(403, "Anda tidak dapat melihat soal orang lain!");
+
+        $answers = !($soal->type === "pg" || $soal->type === "pgk") ? 
+            collect($soal->answers)->first() 
+            : $soal->answers;
+        
+        return response()->json([
+            'id' => $soal->id,
+            'ujianId' => $soal->ujian->id,
+            'type' => $soal->type,
+            'bobot' => $soal->bobot,
+            'answers' => $answers,
+            'soal' => $soal->soal,
+        ]);
+    }
+
     public function uploadImage(Request $request){
 
         $user = Auth::user();

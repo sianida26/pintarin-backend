@@ -55,6 +55,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:guru']], function(){
 
     Route::group(['prefix' => 'soal'], function(){
         Route::post('/', [ SoalController::class, 'createSoal' ]);
+        Route::get('/{id}', [ SoalController::class, 'detailSoal' ]);
         Route::post('/uploadImage', [ SoalController::class, 'uploadImage' ]);
     });
     
