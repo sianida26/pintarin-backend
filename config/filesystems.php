@@ -38,7 +38,7 @@ return [
 
         'soal' => [
             'driver' => 'local',
-            'root' => storage_path('app') . '/soal',
+            'root' => storage_path('app/public/soal'),
             'throw' => false,
         ],
 

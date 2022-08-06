@@ -7,6 +7,7 @@ use App\Models\Ujian;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -80,8 +81,8 @@ class SoalController extends Controller
 
         if (!$guru) return abort(403);
 
-        $url = $request->file('file')->store('soal');
+        $url = $request->file('file')->store('/','soal');
 
-        return response()->json(['url' => $url]);
+        return response()->json(['url' => $request->getHttpHost() . Storage::url('soal/' . $url)]);
     }
 }
