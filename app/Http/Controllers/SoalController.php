@@ -171,6 +171,160 @@ class SoalController extends Controller
         }
     }
 
+    public function editSoal(Request $request, $id){
+
+        $user = Auth::user();
+        $guru = $user->guru;
+        if (!$guru) return abort(403);
+
+        $soal = Soal::find($id);
+        if (!$soal) return abort(404, "Soal tidak ditemukan");
+
+        $rules = [
+            'bobot' => 'required|numeric|min:0',
+            'soal' => 'required',
+            'type' => ['required', Rule::in(['pg','pgk','menjodohkan','isian','uraian'])],
+            'jawabans' => 'required',
+        ];
+
+        $messages = [
+            'required' => 'Harus diisi',
+            'numeric' => 'Harus berupa angka',
+            'min' => 'Harus lebih dari :min',
+            'in' => 'Nilai tidak sesuai',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors(), 'message' => 'Terdapat data yang tidak sesuai. Silakan coba lagi'], 422);
+        }
+
+        if ($soal->ujian->guru->id !== $guru->id) return response()->json(['message' => 'Unauthorized'], 403);
+
+        //Case: Pilihan ganda (pg)
+        if ($request->type === 'pg'){
+            $validatorPg = Validator::make($request->all(), [
+                'jawabans' => 'array:content,isCorrect',
+                'jawabans.*.content' => 'required',
+                'jawabans.*.isCorrect' => 'required|boolean',
+            ],['required' => 'Harus diisi', 'boolean' => "Harus berupa boolean"]);
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors(), 'message' => 'Terdapat data yang tidak sesuai. Silakan coba lagi'], 422);
+            }
+
+            $jawabans = collect($request->jawabans)
+                ->map(fn($jawaban,$index) => [
+                    'id' => $index,
+                    'content' => $jawaban['content'],
+                    'isCorrect' => $jawaban['isCorrect'],
+                ]);
+
+            if (!$jawabans->contains('isCorrect',true)) return response()->json(['errors' => [ 'jawabans' => ['Setidaknya harus ada 1 jawaban yang benar'] ], 'message' => 'Terdapat data yang tidak sesuai. Silakan coba lagi'], 422);
+
+            $soal->update([
+                'soal' => $request->soal,
+                'bobot' => $request->bobot,
+                'type' => 'pg',
+                'answers' => $jawabans,
+            ]);
+
+            return response()->json(['message' => 'Soal berhasil diubah']);
+        }
+
+        //Case: pgk
+        if ($request->type === 'pgk'){
+            $validatorPg = Validator::make($request->all(), [
+                'jawabans' => 'array:content,isCorrect',
+                'jawabans.*.content' => 'required',
+                'jawabans.*.isCorrect' => 'required|boolean',
+            ],['required' => 'Harus diisi', 'boolean' => "Harus berupa boolean"]);
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors(), 'message' => 'Terdapat data yang tidak sesuai. Silakan coba lagi'], 422);
+            }
+
+            $jawabans = collect($request->jawabans)
+                ->map(fn($jawaban,$index) => [
+                    'id' => $index,
+                    'content' => $jawaban['content'],
+                    'isCorrect' => $jawaban['isCorrect'],
+                ]);
+
+            if (!$jawabans->contains('isCorrect',true)) return response()->json(['errors' => [ 'jawabans' => ['Setidaknya harus ada 1 jawaban yang benar'] ], 'message' => 'Terdapat data yang tidak sesuai. Silakan coba lagi'], 422);
+
+            $soal->update([
+                'soal' => $request->soal,
+                'bobot' => $request->bobot,
+                'type' => 'pgk',
+                'answers' => $jawabans,
+            ]);
+
+            return response()->json(['message' => 'Soal berhasil diubah']);
+        }
+
+        //Case: menjodohkan
+        if ($request->type === 'menjodohkan'){
+            $validatorPg = Validator::make($request->all(), [
+                'jawabans' => 'required',
+            ],['required' => 'Harus diisi']);
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors(), 'message' => 'Terdapat data yang tidak sesuai. Silakan coba lagi'], 422);
+            }
+
+            $jawabans = collect($request->jawabans);
+
+            $soal->update([
+                'soal' => $request->soal,
+                'bobot' => $request->bobot,
+                'type' => 'menjodohkan',
+                'answers' => $jawabans,
+            ]);
+
+            return response()->json(['message' => 'Soal berhasil diubah']);
+        }
+
+        //Case: isian
+        if ($request->type === 'isian'){
+            $validatorPg = Validator::make($request->all(), [
+                'jawabans' => 'required',
+            ],['required' => 'Harus diisi']);
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors(), 'message' => 'Terdapat data yang tidak sesuai. Silakan coba lagi'], 422);
+            }
+
+            $jawabans = collect($request->jawabans);
+
+            $soal->update([
+                'soal' => $request->soal,
+                'bobot' => $request->bobot,
+                'type' => 'isian',
+                'answers' => $jawabans,
+            ]);
+
+            return response()->json(['message' => 'Soal berhasil diubah']);
+        }
+
+        //Case: Uraian
+        if ($request->type === 'uraian'){
+            $validatorPg = Validator::make($request->all(), [
+                'jawabans' => 'required',
+            ],['required' => 'Harus diisi']);
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors(), 'message' => 'Terdapat data yang tidak sesuai. Silakan coba lagi'], 422);
+            }
+
+            $jawabans = collect($request->jawabans);
+
+            $soal->update([
+                'soal' => $request->soal,
+                'bobot' => $request->bobot,
+                'type' => 'uraian',
+                'answers' => $jawabans,
+            ]);
+
+            return response()->json(['message' => 'Soal berhasil diubah']);
+        }
+    }
+
     public function detailSoal(Request $request, $id){
 
         $user = Auth::user();
