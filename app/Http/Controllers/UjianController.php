@@ -104,7 +104,28 @@ class UjianController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = Auth::user();
+        $guru = $user->guru;
+        $ujian = Ujian::find($id);
+
+        if (!$guru) return abort(403);
+        if (!$ujian) return abort(404, 'Ujian tidak ditemukan');
+        if ($ujian->guru->id !== $guru->id) abort(403, 'Anda tidak dapat melihat ujian orang lain!');
+
+        $soals = $ujian->soals->map(fn($soal) => [
+            'id' => $soal->id,
+            'soal' => $soal->soal,
+            'type' => $soal->type,
+            'bobot' => $soal->bobot,
+        ]);
+
+        return response()->json([
+            'id' => $ujian->id,
+            'category' => $ujian->category,
+            'type' => $ujian->type,
+            'name' => $ujian->name,
+            'soals' => $soals
+        ]);
     }
 
     /**
