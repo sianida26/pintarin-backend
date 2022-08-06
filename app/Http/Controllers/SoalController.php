@@ -184,7 +184,7 @@ class SoalController extends Controller
 
         $answers = !($soal->type === "pg" || $soal->type === "pgk") ? 
             collect($soal->answers)->first() 
-            : $soal->answers;
+            : collect($soal->answers)->map(fn($answer) => ['content' => $answer['content'], 'isCorrect' => $answer['isCorrect']]);
         
         return response()->json([
             'id' => $soal->id,
