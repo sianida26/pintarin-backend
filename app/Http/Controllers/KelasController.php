@@ -101,6 +101,7 @@ class KelasController extends Controller
         return response()->json([
             'name' => $kelas->name,
             'mapel' => $kelas->matpel->name,
+            'mapelId' => $kelas->matpel->id,
         ]);
     }
 
