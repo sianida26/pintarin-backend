@@ -47,6 +47,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:guru']], function(){
     Route::get('/kelas/{id}/getSiswa', [KelasController::class, 'getSiswa']);
     Route::get('/kelas/{id}/getWaitingSiswa', [KelasController::class, 'getWaitingSiswa']);
     Route::post('/kelas/addUjian', [KelasController::class, 'addUjian']);
+    Route::post('/kelas/removeUjian', [KelasController::class, 'removeUjian']);
     Route::post('/kelas/edit/{id}', [KelasController::class, 'update']);
 
     Route::group(['prefix' => 'ujian'], function(){
