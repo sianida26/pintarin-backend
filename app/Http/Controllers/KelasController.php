@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kelas;
 use App\Models\Matpel;
 use App\Models\Siswa;
+use App\Models\Ujian;
 
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
@@ -168,6 +169,28 @@ class KelasController extends Controller
 
         $siswa->kelas()->attach($kelas, ['is_waiting' => false]);
         return response()->json(['message' => 'Berhasil menambahkan siswa'], 201);
+    }
+
+    public function addUjian(Request $request){
+        $user = Auth::user();
+        if (!$user->hasRole('guru')) return abort(403);
+
+        $guru = $user->guru;
+        $kelas = Kelas::find($request->kelas_id);
+        $ujian = Ujian::find($request->ujian_id);
+        
+        if (!$kelas) return response()->json(['message' => 'Kelas tidak ditemukan'],404);
+        if (!$ujian) return response()->json(['message' => 'Ujian tidak ditemukan'],404);
+
+        if ($kelas->guru->id !== $guru->id) 
+            return response()->json(['message' => 'Anda tidak dapat mengubah kelas guru lain'], 403);
+
+        $ujianKelas = $kelas->ujians()->firstWhere('ujian_id', $ujian->id);
+        if ($ujianKelas)
+            return response()->json(['message' => 'Ujian telah ditambahkan di dalam kelas'], 403);
+
+        $kelas->ujians()->attach($ujian->id);
+        return response()->json(['message' => 'Berhasil menambahkan ujian'], 201);
     }
 
     public function getUjians(Request $request, $id){
