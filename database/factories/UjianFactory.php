@@ -40,4 +40,18 @@ class UjianFactory extends Factory
             ];
         });
     }
+
+    /**
+     * Indicate that the ujian is ujian.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function ujian()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'isUjian' => true,
+            ];
+        });
+    }
 }

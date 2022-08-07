@@ -406,4 +406,37 @@ class KelasController extends Controller
         $siswa->kelas()->detach($kelas->id);
         return response()->json(['message' => 'Berhasil menolak siswa'], 200);
     }
+
+    public function getDetailKelasForSiswa(Request $request, $id)
+    {
+        if (!Auth::user()->hasRole('siswa')) return abort(403);
+
+        $kelas = Kelas::find($id);
+
+        if (!$kelas) return response()->json([ 'message' => 'Kelas tidak ditemukan'],404);
+
+        $latihans = $kelas->ujians()->where('isUjian',false)
+            ->get()
+            ->map(fn($latihan) => [
+                'id' => $latihan->id,
+                'name' => $latihan->name,
+            ]);
+        
+        $ujians = $kelas->ujians()->where('isUjian',true)
+            ->get()
+            ->map(fn($latihan) => [
+                'id' => $latihan->id,
+                'name' => $latihan->name,
+                'nilai' => null
+            ]);
+
+        return response()->json([
+            'name' => $kelas->name,
+            'guru' => $kelas->guru->name,
+            'mapel' => $kelas->matpel->name,
+            'mapelId' => $kelas->matpel->id,
+            'latihans' => $latihans,
+            'ujians' => $ujians,
+        ]);
+    }
 }

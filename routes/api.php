@@ -80,6 +80,7 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['auth:sanctum','role:siswa']
     Route::group(['prefix' => 'kelas'], function(){
         Route::get('/', [KelasController::class, 'listKelasForSiswa']);
         Route::get('/{id}/getLatihan', [LatihanController::class, 'listLatihanByKelasForSiswa']);
+        Route::get('/{id}', [KelasController::class, 'getDetailKelasForSiswa']);
         Route::post('/enroll', [KelasController::class, 'enroll']);
     });
 
