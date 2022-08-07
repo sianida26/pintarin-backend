@@ -51,6 +51,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:guru']], function(){
     Route::post('/kelas/addUjian', [KelasController::class, 'addUjian']);
     Route::post('/kelas/removeUjian', [KelasController::class, 'removeUjian']);
     Route::post('/kelas/edit/{id}', [KelasController::class, 'update']);
+    Route::post('/kelas/delete/{id}', [KelasController::class, 'destroy']);
 
     Route::group(['prefix' => 'ujian'], function(){
         Route::get('/', [UjianController::class, 'index']);

@@ -153,7 +153,18 @@ class KelasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = Auth::user();
+        $guru = $user->guru;
+
+        if (!$guru) return abort(403);
+
+        $kelas = Kelas::find($id);
+        if (!$kelas) return abort(404, "Kelas tidak ditemukan");
+
+        if ($kelas->guru->id !== $guru->id) return abort(403, "Anda tidak dapat menghapus kelas orang lain!");
+
+        $kelas->delete();
+        return response()->json(['message' => 'Kelas berhasil dihapus!']);
     }
 
     public function enroll(Request $request){
