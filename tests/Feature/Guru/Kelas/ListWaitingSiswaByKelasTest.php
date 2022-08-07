@@ -106,3 +106,48 @@ it('Should return pagination data when pages query exists', function(){
              ->etc()
     );
 });
+
+it('Should contains siswa id', function(){
+    $response = $this
+        ->withHeaders([
+            'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
+            'Accept' => 'application/json',
+        ])
+        ->get($this->endpointUrl);
+    $response->assertSuccessful();
+    $response->assertJson(fn (AssertableJson $json) => 
+        $json->whereAllType([
+            '0.id' => 'integer',
+        ])
+    );
+});
+
+it('Should contains siswa name', function(){
+    $response = $this
+        ->withHeaders([
+            'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
+            'Accept' => 'application/json',
+        ])
+        ->get($this->endpointUrl);
+    $response->assertSuccessful();
+    $response->assertJson(fn (AssertableJson $json) => 
+        $json->whereAllType([
+            '0.name' => 'string',
+        ])
+    );
+});
+
+it('Should contains siswa nis', function(){
+    $response = $this
+        ->withHeaders([
+            'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
+            'Accept' => 'application/json',
+        ])
+        ->get($this->endpointUrl);
+    $response->assertSuccessful();
+    $response->assertJson(fn (AssertableJson $json) => 
+        $json->whereAllType([
+            '0.nis' => 'integer|string',
+        ])
+    );
+});
