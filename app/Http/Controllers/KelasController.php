@@ -267,7 +267,12 @@ class KelasController extends Controller
         $kelas = Kelas::find($id);
         if (!$kelas) return response()->json(['message' => 'Kelas tidak ditemukan'], 404);
 
-        $siswas = $kelas->siswas()->wherePivot('is_waiting',false)->get();
+        $siswas = $kelas->siswas()->wherePivot('is_waiting',false)->get()
+            ->map(fn($siswa) => [
+                'id' => $siswa->id,
+                'name' => $siswa->user->name,
+                'nis' => $siswa->nis ?? "-",
+            ]);
         $perPage = $request->query('perPage') ?? 10;
 
         if ($request->query('page')) return response()->json($siswas->paginate($perPage));
