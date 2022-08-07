@@ -8,6 +8,7 @@ use App\Http\Controllers\UjianController;
 use App\Http\Controllers\SoalController;
 use App\Http\Controllers\LatihanController;
 use App\Http\Controllers\MatpelController;
+use App\Http\Controllers\SiswaController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -64,6 +65,10 @@ Route::group(['middleware' => ['auth:sanctum', 'role:guru']], function(){
         Route::post('/edit/{id}', [ SoalController::class, 'editSoal' ]);
         Route::post('/delete/{id}', [ SoalController::class, 'deleteSoal' ]);
         Route::post('/uploadImage', [ SoalController::class, 'uploadImage' ]);
+    });
+    
+    Route::group(['prefix' => 'siswa'], function(){
+        Route::get('/', [ SiswaController::class, 'all' ]);
     });
     
     Route::apiResource('matpel', MatpelController::class);
