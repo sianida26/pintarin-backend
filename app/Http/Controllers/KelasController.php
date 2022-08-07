@@ -113,7 +113,35 @@ class KelasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if (!Auth::user()->hasRole('guru')) return abort(403);
+        if (Auth::user()->hasRole('guru komunitas') && $request->matpelId !== Matpel::firstWhere('name','Kimia')->id) 
+            return response()->json(['message' => 'Anda hanya bisa membuat kelas mata kuliah kimia saja'], 403);
+
+        $kelas = Kelas::find($id);
+        if (!$kelas) return abort(404, "Kelas tidak ditemukan");
+
+        $rules = [
+            'name' => 'required|max:255',
+            'matpelId' => 'required|exists:matpels,id',
+        ];
+
+        $messages = [
+            'required' => 'Harus diisi',
+            'max' => 'Maksimal :max karakter',
+            'exists' => 'Mata pelajaran tidak ada atau tidak valid',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors(), 'message' => 'Terdapat data yang tidak sesuai. Silakan coba lagi'], 422);
+        }
+
+        $kelas->update([
+            'name' => $request->name,
+            'matpel_id' => $request->matpelId,
+        ]);
+
+        return response()->json([ 'message' => 'Kelas berhasil diedit', 'id' => $kelas->id]);
     }
 
     /**
