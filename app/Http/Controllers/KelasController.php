@@ -432,7 +432,7 @@ class KelasController extends Controller
 
         return response()->json([
             'name' => $kelas->name,
-            'guru' => $kelas->guru->name,
+            'guru' => $kelas->guru->user->name,
             'mapel' => $kelas->matpel->name,
             'mapelId' => $kelas->matpel->id,
             'latihans' => $latihans,
