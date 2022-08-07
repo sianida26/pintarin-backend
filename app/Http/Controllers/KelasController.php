@@ -199,6 +199,28 @@ class KelasController extends Controller
         return response()->json(['message' => 'Berhasil menambahkan siswa'], 201);
     }
 
+    public function removeSiswa(Request $request){
+        $user = Auth::user();
+        if (!$user->hasRole('guru')) return abort(403);
+
+        $guru = $user->guru;
+        $kelas = Kelas::find($request->kelas_id);
+        $siswa = Siswa::find($request->siswa_id);
+        
+        if (!$kelas) return response()->json(['message' => 'Kelas tidak ditemukan'],404);
+        if (!$siswa) return response()->json(['message' => 'Siswa tidak ditemukan'],404);
+
+        if ($kelas->guru->id !== $guru->id) 
+            return response()->json(['message' => 'Anda tidak dapat mengubah kelas guru lain'], 403);
+
+        $siswaKelas = $kelas->siswas()->firstWhere('siswa_id', $siswa->id);
+        if (!$siswaKelas)
+            response()->json(['message' => 'Siswa tidak masuk ke dalam kelas'], 403);
+
+        $siswa->kelas()->detach($kelas->id);
+        return response()->json(['message' => 'Berhasil mengurangi siswa']);
+    }
+
     public function addUjian(Request $request){
         $user = Auth::user();
         if (!$user->hasRole('guru')) return abort(403);
