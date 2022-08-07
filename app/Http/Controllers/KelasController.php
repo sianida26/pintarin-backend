@@ -181,7 +181,7 @@ class KelasController extends Controller
         }
 
         if ($siswa->kelas()->where('kelas_id',$kelas->id)->exists())
-            return response()->json(['message' => 'Kelas sudah ter-enrol'],403);
+            return response()->json(['message' => 'Kelas sudah ter-enrol'],200);
 
         //enroll
         $siswa->kelas()->attach($kelas, ['is_waiting' => true]);

@@ -95,7 +95,7 @@ it('Should set status as waiting', function(){
     ]);
 });
 
-it('Should return 403 if already enrolled', function(){
+it('Should return 200 if already enrolled', function(){
     $response = $this
         ->withHeaders([
             'Accept' => 'application/json',
@@ -116,7 +116,7 @@ it('Should return 403 if already enrolled', function(){
             'token' => $this->kelas->getEnrollToken(),
         ]);
 
-    $response2->assertForbidden();
+    $response2->assertSuccessful();
     $response2->assertJsonPath('message', 'Kelas sudah ter-enrol');
 });
 
