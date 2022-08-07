@@ -59,6 +59,8 @@ class LatihanController extends Controller
         
         return response()->json([
             'name' => $ujian->name,
+            'guru' => $ujian->guru->user->name,
+            'category' => $ujian->category,
             'data' => $soals,
         ]);
     }

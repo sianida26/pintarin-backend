@@ -42,7 +42,7 @@ beforeEach(function(){
 });
 
 afterEach(function(){
-    $user = User::where('email', 'LIKE', '%@example%')->forceDelete();
+    User::where('email', 'LIKE', '%@example%')->forceDelete();
     $this->user->forceDelete();
 });
 
@@ -78,6 +78,28 @@ it('Should return latihan name', function(){
         ->get($this->endpointUrl);
     $response->assertSuccessful();
     $response->assertJsonPath('name', $this->ujian->name);
+});
+
+it('Should return guru name', function(){
+    $response = $this
+        ->withHeaders([
+            'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
+            'Accept' => 'application/json',
+        ])
+        ->get($this->endpointUrl);
+    $response->assertSuccessful();
+    $response->assertJsonPath('guru', $this->ujian->guru->user->name);
+});
+
+it('Should return latihan category', function(){
+    $response = $this
+        ->withHeaders([
+            'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
+            'Accept' => 'application/json',
+        ])
+        ->get($this->endpointUrl);
+    $response->assertSuccessful();
+    $response->assertJsonPath('category', $this->ujian->category);
 });
 
 it('Should contains same amounts of soal', function(){
