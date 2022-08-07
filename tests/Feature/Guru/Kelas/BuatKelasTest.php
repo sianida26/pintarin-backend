@@ -68,6 +68,22 @@ it('Should create kelas', function(){
     ]);
 });
 
+it('Should return response kelas id', function(){
+    
+    $response = $this
+        ->withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
+        ])
+        ->postJson($this->endpointUrl,[
+            'name' => '___testing___',
+            'matpelId' => $this->matpelId,
+        ]);
+    
+    $response->assertSuccessful();
+    $response->assertJsonPath('id', $this->guru->kelas()->first()->id);
+});
+
 it('Should return 422 if name is empty', function(){
     
     $response = $this

@@ -71,13 +71,13 @@ class KelasController extends Controller
             return response()->json(['errors' => $validator->errors(), 'message' => 'Terdapat data yang tidak sesuai. Silakan coba lagi'], 422);
         }
 
-        $ujian = Kelas::create([
+        $kelas = Kelas::create([
             'name' => $request->name,
             'matpel_id' => $request->matpelId,
             'guru_id' => Auth::user()->guru->id,
         ]);
 
-        return response()->json([ 'message' => 'Kelas berhasil dibuat' ]);
+        return response()->json([ 'message' => 'Kelas berhasil dibuat', 'id' => $kelas->id]);
     }
 
     /**
