@@ -1,17 +1,17 @@
-_id: req_e5b3110fec544d948991be36f48f9baa
+_id: req_53d6873021814f96a26c69b9f1915342
 type: Request
 parentId: fld_ae8909a37ef948bca47346a28dee521a
-modified: 1659861545855
-created: 1659014226301
-url: "{{ _.basePath }}/kelas"
-name: Buat Kelas
+modified: 1659877588387
+created: 1659861538750
+url: "{{ _.basePath }}/kelas/edit/13658"
+name: Edit Kelas
 description: ""
 method: POST
 body:
   mimeType: application/json
   text: |-
     {
-    	"name": "coba kelas",
+    	"name": "coba kelass",
     	"matpelId": 11
     }
 parameters: []
@@ -26,7 +26,7 @@ headers:
 authentication:
   type: bearer
   token: 1938|MoWg3MAbucmxKgByxGMP1QKgLnzU6hpYLcsvNlHL
-metaSortKey: -1659199386790
+metaSortKey: -1659199386777.5
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true

@@ -1,16 +1,20 @@
 _id: env_78f22f822380412db1d898ea67200ded
 type: Environment
 parentId: env_b48a6179d5eb82e1191977101d5b7f07eb6196fd
-modified: 1658904481393
+modified: 1659963789361
 created: 1658900898831
 name: Production
 data:
   host: https://api.pintarin.id
   basePath: https://api.pintarin.id/api
+  tokenSiswa: 11|AvGEDy2E8l8xAO581xpffDXwTA0aEDUdXKfmQ6qg
+  tokenGuru: 13|d1mYIINoQPFczxqKGMxMduNk69dOSkIKoLArGoJL
 dataPropertyOrder:
   "&":
     - host
     - basePath
+    - tokenSiswa
+    - tokenGuru
 color: null
 isPrivate: false
 metaSortKey: 1658900898831

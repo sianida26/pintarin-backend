@@ -1,7 +1,7 @@
 _id: req_d30cb144caa14f988551f4d69f994329
 type: Request
 parentId: fld_ae8909a37ef948bca47346a28dee521a
-modified: 1659411583218
+modified: 1659891413024
 created: 1659411406673
 url: "{{ _.basePath }}/kelas/declineSiswa"
 name: Tolak Siswa

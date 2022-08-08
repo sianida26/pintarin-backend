@@ -1,7 +1,7 @@
 _id: req_0262707a82bd4c0ba724749fca7181fe
 type: Request
 parentId: fld_9005f5ca103d45c0850a8639511de049
-modified: 1659417264139
+modified: 1659891001279
 created: 1659189211332
 url: "{{ _.basePath }}/siswa/kelas/enroll"
 name: Enroll Kelas
@@ -11,7 +11,7 @@ body:
   mimeType: application/json
   text: >-
     {
-    	"token": "eyJpdiI6ImtVR3BDNjBkRlU3SkM1RElvcHVIOEE9PSIsInZhbHVlIjoiNHFhd0Q2TXR2S0V4U3hyODdYN2lXQT09IiwibWFjIjoiMjZjMGFmMzZmMjZlMThhYTExOThmMmJmMTUzOTcwMmJlYzZiYWRjYjlmNmI2NzhkN2RkMjUzNzEwMTdiNzc0NiIsInRhZyI6IiJ9"
+    	"token": "eyJpdiI6ImhMVm1wcEthVzRHU2p6MGVCT01UZVE9PSIsInZhbHVlIjoiTXVXVDFVN0tRcGY5Q3RIOWJTclJZUT09IiwibWFjIjoiZmMzNjYxMGY4MmE2OWU5OTdkOTkxMWM4MzI4OTdjMjBjZTQyNTZlYWI4ZmU5OWEwYmQwZTQyZDI0OTdkOTM1YSIsInRhZyI6IiJ9"
     }
 parameters: []
 headers:
@@ -24,7 +24,7 @@ headers:
     description: ""
 authentication:
   type: bearer
-  token: 9|vldzNx6DRuBrV8Wd1ZUrBQy2wVcWAQLYFjJjbisl
+  token: "{{ _.tokenSiswa }}"
 metaSortKey: -1659189211332
 isPrivate: false
 settingStoreCookies: true

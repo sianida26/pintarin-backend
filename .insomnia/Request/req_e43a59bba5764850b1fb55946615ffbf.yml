@@ -1,17 +1,16 @@
-_id: req_76ae1a4d871f42d0bc8caf97ad860b03
+_id: req_e43a59bba5764850b1fb55946615ffbf
 type: Request
 parentId: fld_42239c0d886443778045f6f557e05f1f
-modified: 1659819913405
-created: 1658932723537
-url: "{{ _.basePath }}/soal"
-name: Buat Soal
+modified: 1659819931210
+created: 1659819920731
+url: "{{ _.basePath }}/soal/edit/1"
+name: Edit Soal
 description: ""
 method: POST
 body:
   mimeType: application/json
   text: |-
     {
-    	"ujianId": 1,
     	"bobot": 2,
     	"soal": "<p>Halooo</p>",
     	"type": "pg",
@@ -38,7 +37,7 @@ headers:
 authentication:
   type: bearer
   token: 8|5ob7g2gILz42RuHhNiIEEZJ6HKDSmq180w5xv5IQ
-metaSortKey: -1658932723537
+metaSortKey: -1658908930518
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true

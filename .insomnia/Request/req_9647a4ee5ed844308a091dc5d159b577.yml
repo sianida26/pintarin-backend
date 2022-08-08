@@ -1,7 +1,7 @@
 _id: req_9647a4ee5ed844308a091dc5d159b577
 type: Request
 parentId: fld_9005f5ca103d45c0850a8639511de049
-modified: 1659417277765
+modified: 1659963661822
 created: 1659354727091
 url: "{{ _.basePath }}/siswa/kelas/"
 name: Get My Kelas
@@ -18,7 +18,7 @@ headers:
     description: ""
 authentication:
   type: bearer
-  token: 9|vldzNx6DRuBrV8Wd1ZUrBQy2wVcWAQLYFjJjbisl
+  token: "{{ _.tokenSiswa }}"
 metaSortKey: -1659354727091
 isPrivate: false
 settingStoreCookies: true

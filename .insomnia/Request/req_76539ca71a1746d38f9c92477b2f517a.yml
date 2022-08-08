@@ -1,0 +1,35 @@
+_id: req_76539ca71a1746d38f9c92477b2f517a
+type: Request
+parentId: fld_42239c0d886443778045f6f557e05f1f
+modified: 1659784694047
+created: 1659784626952
+url: "{{ _.basePath }}/soal/uploadImage"
+name: Upload Image
+description: ""
+method: POST
+body:
+  mimeType: multipart/form-data
+  params:
+    - id: pair_65d6d114de9d44e299d0802e275e4e40
+      name: file
+      value: ""
+      description: ""
+      type: file
+      multiline: null
+      fileName: C:\Users\chesa\Downloads\uploaded_392389c68ab1bb770ddf5a15daaa7ce0.jpg
+parameters: []
+headers:
+  - name: Content-Type
+    value: multipart/form-data
+    id: pair_d3f8f8c93c50413bada2ba9749cb0197
+authentication:
+  type: bearer
+  token: 1445|fOwDTNjKmTAO625byYfZhIMWvOKF1ycIxZBKYutj
+metaSortKey: -1659784626952
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

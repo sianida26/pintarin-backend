@@ -1,9 +1,9 @@
 _id: req_8d8ea2aca4ca4d6b8eaa40e8542959c9
 type: Request
 parentId: fld_b7d5aaef03d1467cb8f93f72bd6362c5
-modified: 1659418489497
+modified: 1659962674030
 created: 1659417211966
-url: "{{ _.basePath }}/siswa/kelas/9/getLatihan"
+url: "{{ _.basePath }}/siswa/kelas/13631/getLatihan"
 name: List Latihan By Kelas
 description: ""
 method: GET
@@ -26,7 +26,7 @@ headers:
     description: ""
 authentication:
   type: bearer
-  token: 9|vldzNx6DRuBrV8Wd1ZUrBQy2wVcWAQLYFjJjbisl
+  token: "{{ _.tokenSiswa }}"
 metaSortKey: -1659417211966
 isPrivate: false
 settingStoreCookies: true
