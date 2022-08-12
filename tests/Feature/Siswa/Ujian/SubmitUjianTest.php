@@ -30,6 +30,7 @@ beforeEach(function(){
                 ->has(Soal::factory()->count(10)->pgk())
                 ->has(Soal::factory()->count(10)->isian())
                 ->has(Soal::factory()->count(10)->uraian())
+                ->ujian()
         )
         ->has(Kelas::factory())
         ->create();
@@ -127,7 +128,7 @@ it('Should return 403 if not siswa', function(){
     $response->assertForbidden();
 });
 
-it('Should success submit latihan', function(){
+it('Should success submit ujian', function(){
     $response = $this
         ->withHeaders([
             'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
