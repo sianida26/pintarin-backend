@@ -1,23 +1,23 @@
-_id: req_45df685a3d9d44d3a1f8e1ba9052cddf
+_id: req_31992e54ad7f431e88863267170eb8e8
 type: Request
-parentId: fld_ae8909a37ef948bca47346a28dee521a
-modified: 1659852191709
-created: 1659270104142
-url: "{{ _.basePath }}/kelas/13631/getUjians"
-name: Get Ujians From Kelas
+parentId: fld_b06180ac5a2e4143979b92ef1dd9d90d
+modified: 1659868069526
+created: 1659867939018
+url: "{{ _.basePath }}/siswa"
+name: Get All Siswa
 description: ""
 method: GET
 body: {}
 parameters: []
 headers:
-  - id: pair_01f05cf7e86d4f968ced301d2c7d37a8
+  - id: pair_3f4e726f254f472b984ced98335521fc
     name: Accept
     value: application/json
     description: ""
 authentication:
   type: bearer
-  token: 1938|MoWg3MAbucmxKgByxGMP1QKgLnzU6hpYLcsvNlHL
-metaSortKey: -1659270104142
+  token: "{{ _.guruToken }}"
+metaSortKey: -1659867939018
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true

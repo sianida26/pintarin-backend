@@ -1,0 +1,23 @@
+_id: req_c5f5b4153e0e4b67b302f6c1a3a68503
+type: Request
+parentId: fld_53847aafa05a469c88e99f1b468d5c3e
+modified: 1659748965835
+created: 1659748899122
+url: "{{ _.basePath }}/ujian/1703"
+name: Get Detail Ujian By Id
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: 1339|NwLtiX9JKsHLZwvxwAj3VlKllonDwj2iQ8CAPGln
+metaSortKey: -1659748899122
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

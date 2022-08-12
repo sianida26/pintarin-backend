@@ -1,7 +1,7 @@
 _id: req_e23609d127174f77a025d119db47eea6
 type: Request
 parentId: fld_871f54b27d8d453e80244278768df3ea
-modified: 1659091947724
+modified: 1659849434549
 created: 1658883129343
 url: "{{ _.basePath }}/lengkapi-profil-guru"
 name: Lengkapi Profil Guru
@@ -18,7 +18,8 @@ body:
     	"alamat": "Jl. in aja dulu",
     	"phone": "087423487234",
     	"statusKepegawaian": "Guru honorer",
-    	"pendidikanTerakhir": "S3"
+    	"pendidikanTerakhir": "S3",
+    	"jk": "male"
     }
 parameters: []
 headers:

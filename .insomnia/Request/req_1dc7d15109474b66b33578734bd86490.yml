@@ -1,9 +1,9 @@
 _id: req_1dc7d15109474b66b33578734bd86490
 type: Request
 parentId: fld_ae8909a37ef948bca47346a28dee521a
-modified: 1659223858263
+modified: 1659885076073
 created: 1659223379529
-url: "{{ _.basePath }}/kelas/165"
+url: "{{ _.basePath }}/kelas/13631"
 name: Detail Kelas
 description: |-
   ### path
@@ -18,7 +18,7 @@ parameters: []
 headers: []
 authentication:
   type: bearer
-  token: 62|9fHa0FormxhMJe059S2VhilBFLCrA0ylSQ8wCv2k
+  token: "{{ _.tokenGuru }}"
 metaSortKey: -1659223379529
 isPrivate: false
 settingStoreCookies: true

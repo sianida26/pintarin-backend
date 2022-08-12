@@ -1,0 +1,23 @@
+_id: req_a980e96a8032444fa4db2bc786a746cc
+type: Request
+parentId: fld_42239c0d886443778045f6f557e05f1f
+modified: 1659816582078
+created: 1659812886202
+url: "{{ _.basePath }}/soal/1"
+name: Get Detail Soal By Id
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: 6|grps61SH4FYViwyfEaAm7bIISypi5vb8dZ9Bdfu0
+metaSortKey: -1659812886202
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

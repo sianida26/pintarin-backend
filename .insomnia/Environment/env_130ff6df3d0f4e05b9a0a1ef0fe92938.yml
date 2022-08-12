@@ -1,16 +1,20 @@
 _id: env_130ff6df3d0f4e05b9a0a1ef0fe92938
 type: Environment
 parentId: env_b48a6179d5eb82e1191977101d5b7f07eb6196fd
-modified: 1659195109434
+modified: 1659963704986
 created: 1658900871893
 name: Development
 data:
   host: localhost:8000
   basePath: localhost:8000/api
+  tokenGuru: 1938|MoWg3MAbucmxKgByxGMP1QKgLnzU6hpYLcsvNlHL
+  tokenSiswa: 2075|6oaxcHIolUDkU3Qlqii75R5Byb4IK8J4qQqlUitG
 dataPropertyOrder:
   "&":
     - host
     - basePath
+    - tokenGuru
+    - tokenSiswa
 color: null
 isPrivate: false
 metaSortKey: 1658900871893
