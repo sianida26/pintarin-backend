@@ -203,4 +203,41 @@ class UjianController extends Controller
         $ujian->delete();
         return response()->json(['message' => 'Ujian berhasil dihapus!']);
     }
+
+    public function getUjianById(Request $request, $id){
+        $user = Auth::user();
+        $siswa = $user->siswa;
+
+        $ujian = Ujian::find($id);
+        
+        if (!$ujian || !$ujian->isUjian || !$ujian->kelas()->get()->first(fn($kelas) => $kelas->siswas()->where('id',$siswa->id)->exists()))
+            return response()->json(['message' => 'Ujian tidak ditemukan'], 404);
+
+        $soals = $ujian->soals
+            ->map(fn($soal) => [
+                'type' => $soal->type,
+                'soal' => $soal->soal,
+                'soal_id' => $soal->id,
+                'jawabans' => $soal->answers,
+            ])
+            ->sortBy(function($soal){
+                switch ($soal['type']){
+                    case "pg": return 0;
+                    case "pgk": return 1;
+                    case "menjodohkan": return 2;
+                    case "isian": return 3;
+                    case "uraian": return 4;
+                    default: return 5;
+                }
+            })
+            ->values()
+            ->all();
+        
+        return response()->json([
+            'name' => $ujian->name,
+            'guru' => $ujian->guru->user->name,
+            'category' => $ujian->category,
+            'data' => $soals,
+        ]);
+    }
 }

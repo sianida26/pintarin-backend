@@ -88,6 +88,10 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['auth:sanctum','role:siswa']
         Route::get('/{id}', [LatihanController::class, 'getLatihanById']);
         Route::post('/submit', [LatihanController::class, 'submit']);
     });
+
+    Route::group(['prefix' => 'ujian'], function(){
+        Route::get('/{id}', [UjianController::class, 'getUjianById']);
+    });
     
 });
 

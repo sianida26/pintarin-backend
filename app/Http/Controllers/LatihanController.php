@@ -55,7 +55,19 @@ class LatihanController extends Controller
                 'soal' => $soal->soal,
                 'soal_id' => $soal->id,
                 'jawabans' => $soal->answers,
-            ]);
+            ])
+            ->sortBy(function($soal){
+                switch ($soal['type']){
+                    case "pg": return 0;
+                    case "pgk": return 1;
+                    case "menjodohkan": return 2;
+                    case "isian": return 3;
+                    case "uraian": return 4;
+                    default: return 5;
+                }
+            })
+            ->values()
+            ->all();
         
         return response()->json([
             'name' => $ujian->name,
