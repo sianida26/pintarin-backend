@@ -8,6 +8,7 @@ use App\Models\Kelas;
 use App\Models\Matpel;
 use App\Models\User;
 use App\Models\Ujian;
+use App\Models\UjianResult;
 use App\Models\Soal;
 
 use Faker\Factory as Faker;
@@ -170,4 +171,24 @@ it('Should contains soal id', function(){
                 )
                 ->etc()
     );
+});
+
+it('Should return 403 if already taken', function(){
+
+    UjianResult::create([
+        'siswa_id' => $this->siswa->id,
+        'ujian_id' => $this->ujian->id,
+        'answers' => [['soalId' => 0, 'answer' => 'djkasljdlas']],
+        'nilai' => 0,
+    ]);
+
+    $response = $this
+        ->withHeaders([
+            'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
+            'Accept' => 'application/json',
+        ])
+        ->get($this->endpointUrl);
+    $response->assertForbidden();
+    $response
+        ->assertJsonPath('message', 'Anda telah mengambil ujian ini');
 });

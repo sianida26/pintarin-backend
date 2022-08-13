@@ -214,6 +214,9 @@ class UjianController extends Controller
         
         if (!$ujian || !$ujian->isUjian || !$ujian->kelas()->get()->first(fn($kelas) => $kelas->siswas()->where('id',$siswa->id)->exists()))
             return response()->json(['message' => 'Ujian tidak ditemukan'], 404);
+        
+        if (UjianResult::where('ujian_id',$id)->where('siswa_id',$siswa->id)->exists())
+            return abort(403, 'Anda telah mengambil ujian ini');
 
         $soals = $ujian->soals
             ->map(fn($soal) => [
