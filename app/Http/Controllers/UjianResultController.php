@@ -76,7 +76,8 @@ class UjianResultController extends Controller
                         '__debug__' => $kelas
                     ];
                 }
-            );
+            )
+            ->values();
         
         $perPage = $request->query('perPage') ?? 10;
         if ($request->query('page')) return response()->json($ujians->paginate($perPage));
