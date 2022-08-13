@@ -191,7 +191,7 @@ class UjianResultController extends Controller
         if (!$ujian || !$ujian->isUjian || $ujian->guru->id !== $guru->id)
             return response()->json(['message' => 'Ujian tidak ditemukan'], 404);
 
-        Debugbar::info($ujianResult->getAnswerBySoalId($id));
+        Debugbar::info($ujianResult->getAnswerBySoalId(8));
         Debugbar::info($ujianResult->answers);
 
         $soals = $ujian->soals
