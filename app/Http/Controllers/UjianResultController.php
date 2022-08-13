@@ -200,8 +200,8 @@ class UjianResultController extends Controller
                 'soal' => $soal->soal,
                 'soal_id' => $soal->id,
                 'jawabans' => $soal->answers,
-                'jawabanSiswa' => $ujianResult->getAnswerBySoalId($id)['answer'],
-                'score' => $ujianResult->getAnswerBySoalId($id)->score,
+                'jawabanSiswa' => $ujianResult->getAnswerBySoalId($soal->id)->answer,
+                'score' => $ujianResult->getAnswerBySoalId($soal->id)->score,
             ])
             ->sortBy(function($soal){
                 switch ($soal['type']){
