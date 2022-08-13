@@ -77,6 +77,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:guru']], function(){
         Route::get('/', [ UjianResultController::class, 'allUjian' ]);
         Route::get('/ujian/{id}', [ UjianResultController::class, 'getByUjianId' ]);
         Route::get('/{ujian}/{kelas}', [ UjianResultController::class, 'getByKelasId' ]);
+        Route::get('/{id}', [ UjianResultController::class, 'getById' ]);
     });
     
     Route::apiResource('matpel', MatpelController::class);

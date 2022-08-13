@@ -42,4 +42,8 @@ class UjianResult extends Model
     {
         return $this->belongsTo(Ujian::class);
     }
+
+    public function getAnswerBySoalId($id){
+        return collect(collect($this->answers)->firstWhere('id',$id));
+    }
 }

@@ -178,4 +178,50 @@ class UjianResultController extends Controller
         if ($request->query('page')) return response()->json($siswas->paginate($perPage));
         return response()->json($siswas);
     }
+
+    public function getById(Request $request, $id){
+        $user = Auth::user();
+        $guru = $user->guru;
+
+        $ujianResult = UjianResult::findOrFail($id);
+        $ujian = $ujianResult->ujian;
+
+        $siswa = $ujianResult->siswa;
+        
+        if (!$ujian || !$ujian->isUjian || $ujian->guru_id !== $guru->id)
+            return response()->json(['message' => 'Ujian tidak ditemukan'], 404);
+        
+        if (!UjianResult::where('ujian_id',$id)->where('siswa_id',$siswa->id)->exists())
+            return abort(403, 'Hasil ujian tidak ditemukan');
+
+        $soals = $ujian->soals
+            ->map(fn($soal) => [
+                'type' => $soal->type,
+                'soal' => $soal->soal,
+                'soal_id' => $soal->id,
+                'jawabans' => $soal->answers,
+                'jawabanSiswa' => $ujianResult->getAnswerBySoalId($id)->answer,
+                'score' => $ujianResult->getAnswerBySoalId($id)->score,
+            ])
+            ->sortBy(function($soal){
+                switch ($soal['type']){
+                    case "pg": return 0;
+                    case "pgk": return 1;
+                    case "menjodohkan": return 2;
+                    case "isian": return 3;
+                    case "uraian": return 4;
+                    default: return 5;
+                }
+            })
+            ->values()
+            ->all();
+        
+        return response()->json([
+            'name' => $ujian->name,
+            'siswaName' => $siswa->user->name,
+            'nis' => $siswa->nis,
+            'submittedAt' => $ujianResult->created_at,
+            'data' => $soals,
+        ]);
+    }
 }
