@@ -6,6 +6,7 @@ use App\Models\Guru;
 use App\Models\Kelas;
 use App\Models\Matpel;
 use App\Models\Ujian;
+use App\Models\UjianResult;
 use App\Models\Siswa;
 use App\Models\User;
 
@@ -228,7 +229,15 @@ it('Should contains name on ujian anbk', function(){
     );
 });
 
-it('Should contains score on ujian anbk', function(){
+it('Should contains already taken flag on ujian anbk', function(){
+
+    $ujianId = $this->kelas->ujians()->where('isUjian',true)->first()->id;
+    UjianResult::create([
+        'siswa_id' => $this->siswa->id,
+        'ujian_id' => $ujianId,
+        'answers' => [['soalId' => 0, 'answer' => 'djkasljdlas']],
+        'nilai' => 0,
+    ]);
 
     $response = $this
         ->withHeaders([
@@ -240,7 +249,11 @@ it('Should contains score on ujian anbk', function(){
     $response->assertSuccessful();
     $response->assertJson(fn (AssertableJson $json) => 
         $json->has('ujians.0', fn ($json) => 
-                $json->has('nilai')
+                $json->where('isAlreadyTaken', true)
+                    ->etc()
+            )
+            ->has('ujians.1', fn($json) =>
+                $json->where('isAlreadyTaken', false)
                     ->etc()
             )
             ->etc()

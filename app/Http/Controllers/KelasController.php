@@ -410,6 +410,9 @@ class KelasController extends Controller
     public function getDetailKelasForSiswa(Request $request, $id)
     {
         if (!Auth::user()->hasRole('siswa')) return abort(403);
+        
+        $siswa = Auth::user()->siswa;
+        if (!$siswa) return abort(403);
 
         $kelas = Kelas::find($id);
 
@@ -424,10 +427,10 @@ class KelasController extends Controller
         
         $ujians = $kelas->ujians()->where('isUjian',true)
             ->get()
-            ->map(fn($latihan) => [
-                'id' => $latihan->id,
-                'name' => $latihan->name,
-                'nilai' => null
+            ->map(fn($ujian) => [
+                'id' => $ujian->id,
+                'name' => $ujian->name,
+                'isAlreadyTaken' => $ujian->ujianResults()->where('siswa_id',$siswa->id)->exists(),
             ]);
 
         return response()->json([
