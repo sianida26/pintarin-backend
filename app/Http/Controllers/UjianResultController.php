@@ -197,7 +197,7 @@ class UjianResultController extends Controller
                 'soal' => $soal->soal,
                 'soal_id' => $soal->id,
                 'jawabans' => $soal->answers,
-                'jawabanSiswa' => $ujianResult->getAnswerBySoalId($id)->answer,
+                'jawabanSiswa' => $ujianResult->getAnswerBySoalId($id)['answer'],
                 'score' => $ujianResult->getAnswerBySoalId($id)->score,
             ])
             ->sortBy(function($soal){
