@@ -190,9 +190,6 @@ class UjianResultController extends Controller
         
         if (!$ujian || !$ujian->isUjian || $ujian->guru->id !== $guru->id)
             return response()->json(['message' => 'Ujian tidak ditemukan'], 404);
-        
-        if (!UjianResult::where('ujian_id',$id)->where('siswa_id',$siswa->id)->exists())
-            return abort(403, 'Hasil ujian tidak ditemukan');
 
         $soals = $ujian->soals
             ->map(fn($soal) => [
