@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ujian;
 use App\Models\Soal;
+use App\Models\Kelas;
 use App\Models\UjianResult;
 
 use Illuminate\Http\Request;
@@ -132,10 +133,49 @@ class UjianResultController extends Controller
                     'message' => $message
                 ],
             ];
-        });
+        })
+        ->values();
         
         $perPage = $request->query('perPage') ?? 10;
         if ($request->query('page')) return response()->json($kelas->paginate($perPage));
         return response()->json($kelas);
+    }
+
+    public function getByKelasId(Request $request, $ujianId, $kelasId){
+
+        $user = Auth::user();        
+        $guru = $user->guru;
+
+        if (!$guru) return abort(403);
+
+        $kelas = Kelas::findOrFail($kelasId);
+        $ujian = Ujian::findOrFail($ujianId);
+
+        $siswas = $kelas->siswas()->wherePivot('is_waiting', false)->get()
+            ->map(function($siswa) use ($ujianId){
+                $score = null;
+                $submitTime = null;
+                $status = "NOT SUBMIT";
+                $ujianResult = UjianResult::where('ujian_id',$ujianId)->firstWhere('siswa_id',$siswa->id);
+                if ($ujianResult){
+                    $score = $ujianResult->nilai;
+                    $submitTime = $ujianResult->created_at;
+                    $status = $score === null ? "NOT REVIEWED" : "REVIEWED";
+                }
+                return [
+                    'id' => $siswa->id,
+                    'name' => $siswa->user->name,
+                    'submitAt' => $submitTime,
+                    'status' => [
+                        'status' => $status,
+                        'score' => $score,
+                    ]
+                ];
+            });
+
+        
+        $perPage = $request->query('perPage') ?? 10;
+        if ($request->query('page')) return response()->json($siswas->paginate($perPage));
+        return response()->json($siswas);
     }
 }
