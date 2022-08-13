@@ -188,7 +188,7 @@ class UjianResultController extends Controller
 
         $siswa = $ujianResult->siswa;
         
-        if (!$ujian || !$ujian->isUjian || $ujian->guru_id !== $guru->id)
+        if (!$ujian || !$ujian->isUjian || $ujian->guru->id !== $guru->id)
             return response()->json(['message' => 'Ujian tidak ditemukan'], 404);
         
         if (!UjianResult::where('ujian_id',$id)->where('siswa_id',$siswa->id)->exists())
