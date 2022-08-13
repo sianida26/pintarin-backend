@@ -5,6 +5,7 @@ use App\Http\Controllers\DevController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UjianController;
+use App\Http\Controllers\UjianResultController;
 use App\Http\Controllers\SoalController;
 use App\Http\Controllers\LatihanController;
 use App\Http\Controllers\MatpelController;
@@ -70,6 +71,10 @@ Route::group(['middleware' => ['auth:sanctum', 'role:guru']], function(){
     
     Route::group(['prefix' => 'siswa'], function(){
         Route::get('/', [ SiswaController::class, 'all' ]);
+    });
+
+    Route::group(['prefix' => 'hasil'], function(){
+        Route::get('/', [ UjianResultController::class, 'allUjian' ]);
     });
     
     Route::apiResource('matpel', MatpelController::class);

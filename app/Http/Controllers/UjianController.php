@@ -292,7 +292,7 @@ class UjianController extends Controller
             'siswa_id' => $siswa->id,
             'ujian_id' => $ujian->id,
             'answers' => $answers,
-            'nilai' => 0,
+            'nilai' => null,
         ]);
 
         return response()->json($request->answers);
