@@ -195,7 +195,7 @@ class UjianResultController extends Controller
         Debugbar::info($ujianResult->answers);
 
         $soals = $ujian->soals
-            ->map(function($soal){Debugbar::info($soal->id); return[
+            ->map(function($soal)use($ujianResult){Debugbar::info($soal->id); return[
                 'type' => $soal->type,
                 'soal' => $soal->soal,
                 'soal_id' => $soal->id,
