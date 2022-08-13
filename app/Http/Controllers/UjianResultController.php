@@ -83,4 +83,59 @@ class UjianResultController extends Controller
         if ($request->query('page')) return response()->json($ujians->paginate($perPage));
         return response()->json($ujians);
     }
+
+    public function getByUjianId(Request $request, $id){
+
+        $user = Auth::user();        
+        $guru = $user->guru;
+
+        if (!$guru) return abort(403);
+
+        $ujian = Ujian::findOrFail($id);
+
+        $ujianResults = $ujian->ujianResults;
+        $kelas = $ujian->kelas->map(function($kelas) use ($ujianResults){
+            $siswas = $kelas->siswas()->wherePivot('is_waiting',false)->get();
+            $result = $siswas->reduce(function($carry, $siswa) use ($ujianResults){
+                $ujianResult = $ujianResults->firstWhere('siswa_id',$siswa->id);
+                if (!$ujianResult) return $carry;
+                if ($ujianResult->nilai === null){
+                    return [$carry[0],$carry[1]+1];
+                }
+                return [$carry[0]+1,$carry[1]+1];
+            }, [0,0]); //index 0 : n_siswa yang sudah dinilai, index 1: n_siswa yang sudah submit
+
+            $status = "UNDEFINED STATUS";
+            $message = "UNDEFINED MESSAGE";
+    
+            if ($result[1] === 0){
+                $status = "EMPTY";
+                $message = "Belum ada hasil asesmen yang masuk";
+            }
+            else if ($result[0] === 0 ){
+                $status = "INCOMPLETE";
+                $message = "Belum ada siswa yang dinilai";
+            }
+            else if ($result[0] === $result[1]){
+                $status = "COMPLETED";
+                $message = "Sudah dinilai semua";
+            } else {
+                $status = "PROGRESS";
+                $message = $result[0] . "/" . $result[1] . " siswa sudah dinilai";
+            }
+    
+            return [
+                'id' => $kelas->id,
+                'name' => $kelas->name,
+                'status' => [
+                    'status' => $status,
+                    'message' => $message
+                ],
+            ];
+        });
+        
+        $perPage = $request->query('perPage') ?? 10;
+        if ($request->query('page')) return response()->json($kelas->paginate($perPage));
+        return response()->json($kelas);
+    }
 }
