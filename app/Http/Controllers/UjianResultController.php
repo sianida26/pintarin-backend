@@ -191,19 +191,15 @@ class UjianResultController extends Controller
         if (!$ujian || !$ujian->isUjian || $ujian->guru->id !== $guru->id)
             return response()->json(['message' => 'Ujian tidak ditemukan'], 404);
 
-        Debugbar::info($ujianResult->getAnswerBySoalId(8)->get('answer'));
-        Debugbar::info($ujianResult->getAnswerBySoalId(8)->get('score'));
-        Debugbar::info(collect($ujianResult->answers));
-
         $soals = $ujian->soals
-            ->map(function($soal)use($ujianResult){Debugbar::info($soal->id); return[
+            ->map(fn ($soal) => [
                 'type' => $soal->type,
                 'soal' => $soal->soal,
                 'soal_id' => $soal->id,
                 'jawabans' => $soal->answers,
-                'jawabanSiswa' => $ujianResult->getAnswerBySoalId($soal->id)->answer,
-                'score' => $ujianResult->getAnswerBySoalId($soal->id)->score,
-            ];})
+                'jawabanSiswa' => $ujianResult->getAnswerBySoalId($soal->id)->get('answer'),
+                'score' => $ujianResult->getAnswerBySoalId($soal->id)->get('score'),
+            ])
             ->sortBy(function($soal){
                 switch ($soal['type']){
                     case "pg": return 0;
