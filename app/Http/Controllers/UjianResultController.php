@@ -192,7 +192,7 @@ class UjianResultController extends Controller
             return response()->json(['message' => 'Ujian tidak ditemukan'], 404);
 
         Debugbar::info($ujianResult->getAnswerBySoalId(8));
-        Debugbar::info($ujianResult->answers);
+        Debugbar::info(collect($ujianResult->answers));
 
         $soals = $ujian->soals
             ->map(function($soal)use($ujianResult){Debugbar::info($soal->id); return[
