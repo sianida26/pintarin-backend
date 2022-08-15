@@ -197,6 +197,7 @@ class UjianResultController extends Controller
                 'soal' => $soal->soal,
                 'soal_id' => $soal->id,
                 'jawabans' => $soal->answers,
+                'bobot' => $soal->bobot,
                 'jawabanSiswa' => $ujianResult->getAnswerBySoalId($soal->id)->get('answer'),
                 'score' => $ujianResult->getAnswerBySoalId($soal->id)->get('score'),
             ])
