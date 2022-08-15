@@ -233,7 +233,7 @@ class UjianResultController extends Controller
         $ujian = $ujianResult->ujian;
 
         $bobotTotal = 0;
-        $answers = collect($request->scores)->map(function($score)use($bobotTotal){
+        $answers = collect($request->scores)->map(function($score)use($bobotTotal,$ujianResult){
 
             // dd($answer);
             
