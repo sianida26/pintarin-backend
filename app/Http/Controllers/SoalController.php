@@ -24,6 +24,7 @@ class SoalController extends Controller
             'soal' => 'required',
             'type' => ['required', Rule::in(['pg','pgk','menjodohkan','isian','uraian'])],
             'jawabans' => 'required',
+            'pembahasan' => 'required'
         ];
 
         $messages = [
@@ -68,6 +69,7 @@ class SoalController extends Controller
                 'type' => 'pg',
                 'answers' => $jawabans,
                 'ujian_id' => $request->ujianId,
+                'pembahasan' => $request->pembahasan,
             ]);
 
             return response()->json(['message' => 'Soal berhasil dibuat']);
@@ -99,6 +101,7 @@ class SoalController extends Controller
                 'type' => 'pgk',
                 'answers' => $jawabans,
                 'ujian_id' => $request->ujianId,
+                'pembahasan' => $request->pembahasan,
             ]);
 
             return response()->json(['message' => 'Soal berhasil dibuat']);
@@ -121,6 +124,7 @@ class SoalController extends Controller
                 'type' => 'menjodohkan',
                 'answers' => $jawabans,
                 'ujian_id' => $request->ujianId,
+                'pembahasan' => $request->pembahasan,
             ]);
 
             return response()->json(['message' => 'Soal berhasil dibuat']);
@@ -143,6 +147,7 @@ class SoalController extends Controller
                 'type' => 'isian',
                 'answers' => $jawabans,
                 'ujian_id' => $request->ujianId,
+                'pembahasan' => $request->pembahasan,
             ]);
 
             return response()->json(['message' => 'Soal berhasil dibuat']);
@@ -165,6 +170,7 @@ class SoalController extends Controller
                 'type' => 'uraian',
                 'answers' => $jawabans,
                 'ujian_id' => $request->ujianId,
+                'pembahasan' => $request->pembahasan,
             ]);
 
             return response()->json(['message' => 'Soal berhasil dibuat']);

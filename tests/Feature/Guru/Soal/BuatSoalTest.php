@@ -46,6 +46,7 @@ it('Should create soal with type pg', function(){
             'ujianId' => $this->ujian->id,
             'bobot' => 2,
             'soal' => '<p>Halo, aku soal</p>',
+            'pembahasan' => "Aku adalah pembahasan",
             'type' => 'pg',
             'jawabans' => [
                 [
@@ -89,6 +90,7 @@ it('Should create soal with type pgk', function(){
             'ujianId' => $this->ujian->id,
             'bobot' => 2,
             'soal' => '<p>Halo, aku soal</p>',
+            'pembahasan' => "Aku adalah pembahasan",
             'type' => 'pgk',
             'jawabans' => [
                 [
@@ -130,6 +132,7 @@ it('Should create soal with type menjodohkan', function(){
         ])
         ->postJson($this->endpointUrl, [
             'ujianId' => $this->ujian->id,
+            'pembahasan' => "Aku adalah pembahasan",
             'bobot' => 2,
             'soal' => '<p>Halo, aku soal</p>',
             'type' => 'menjodohkan',
@@ -152,6 +155,7 @@ it('Should create soal with type isian', function(){
         ])
         ->postJson($this->endpointUrl, [
             'ujianId' => $this->ujian->id,
+            'pembahasan' => "Aku adalah pembahasan",
             'bobot' => 2,
             'soal' => '<p>Halo, aku soal</p>',
             'type' => 'isian',
@@ -174,6 +178,7 @@ it('Should create soal with type uraian', function(){
         ])
         ->postJson($this->endpointUrl, [
             'ujianId' => $this->ujian->id,
+            'pembahasan' => "Aku adalah pembahasan",
             'bobot' => 2,
             'soal' => '<p>Halo, aku soal</p>',
             'type' => 'uraian',
@@ -204,6 +209,7 @@ it('Should return 403 if uploads into other user\'s ujian', function(){
             'ujianId' => $this->ujian->id,
             'bobot' => 2,
             'soal' => '<p>Halo, aku soal</p>',
+            'pembahasan' => "Aku adalah pembahasan",
             'type' => 'pg',
             'jawabans' => [
                 [
@@ -241,6 +247,7 @@ it('Should return 422 if soal is empty', function(){
         ])
         ->postJson($this->endpointUrl, [
             'ujianId' => $this->ujian->id,
+            'pembahasan' => "Aku adalah pembahasan",
             'bobot' => 2,
             'soal' => '',
             'type' => 'pg',
@@ -281,6 +288,7 @@ it('Should return 422 if bobot is not a number', function(){
         ])
         ->postJson($this->endpointUrl, [
             'ujianId' => $this->ujian->id,
+            'pembahasan' => "Aku adalah pembahasan",
             'bobot' => 'dshfkjdsf',
             'soal' => '<p>Halo, aku soal</p>',
             'type' => 'pg',
@@ -323,6 +331,7 @@ it('Should return 422 if bobot is less than 0', function(){
             'ujianId' => $this->ujian->id,
             'bobot' => -1,
             'soal' => '<p>Halo, aku soal</p>',
+            'pembahasan' => "Aku adalah pembahasan",
             'type' => 'pg',
             'jawabans' => [
                 [
@@ -363,6 +372,7 @@ it('Should have at least 1 correct answer for multiple choice', function(){
             'ujianId' => $this->ujian->id,
             'bobot' => 2,
             'soal' => '<p>Halo, aku soal</p>',
+            'pembahasan' => "Aku adalah pembahasan",
             'type' => 'pg',
             'jawabans' => [
                 [
@@ -390,4 +400,28 @@ it('Should have at least 1 correct answer for multiple choice', function(){
     
     $response->assertUnprocessable();
     $response->assertJsonPath('errors.jawabans.0','Setidaknya harus ada 1 jawaban yang benar');
+});
+
+it('Should create soal with pembahasan', function(){
+
+    $response = $this
+        ->withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
+        ])
+        ->postJson($this->endpointUrl, [
+            'ujianId' => $this->ujian->id,
+            'bobot' => 2,
+            'soal' => '<p>Halo, aku soal</p>',
+            'type' => 'uraian',
+            'jawabans' => "jdslfjd sfjdlsfdsl df jkdfhkj dfhkd hfksdhfskfhskdf sdfhksfdhsk fhskjdfh dskfh",
+            'pembahasan' => "Aku adalah pembahasan",
+        ]);
+    
+    $response->assertSuccessful();
+    $this->assertDatabaseHas('soals',[
+        'soal' => '<p>Halo, aku soal</p>',
+        'type' => 'uraian',
+        'pembahasan' => "Aku adalah pembahasan",
+    ]);
 });

@@ -171,3 +171,21 @@ it('Should contains soal id', function(){
                 ->etc()
     );
 });
+
+it('Should contains soal pembahasan', function(){
+    $response = $this
+        ->withHeaders([
+            'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
+            'Accept' => 'application/json',
+        ])
+        ->get($this->endpointUrl);
+    $response->assertSuccessful();
+    $response
+        ->assertJson(fn(AssertableJson $json) =>
+            $json->has('data', $this->ujian->soals()->count(), fn($json)=>
+                $json->has('pembahasan')
+                    ->etc()
+                )
+                ->etc()
+    );
+});

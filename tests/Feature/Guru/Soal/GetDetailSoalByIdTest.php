@@ -276,6 +276,35 @@ it('Should contains answers with string type soal type is uraian', function(){
     );
 });
 
+it('Should contains answers with pembahasan', function(){
+
+    $guru = Guru::factory()
+        ->has(
+            Ujian::factory()
+                ->has(Soal::factory()->uraian())
+        )
+        ->create();
+    $user = $guru->user;
+    $user->assignRole('guru');
+
+    $soal = $guru->ujians()->first()->soals->first();
+
+    $endpointUrl = '/api/soal/' . $soal->id;
+
+    $response = $this
+        ->withHeaders([
+            'Authorization' => 'Bearer ' . $user->getAccessToken(),
+            'Accept' => 'application/json',
+        ])
+        ->get($endpointUrl);
+        
+    $response->assertSuccessful();
+    $response->assertJson(fn(AssertableJson $json) =>
+        $json->whereType('pembahasan','string')
+            ->etc()
+    );
+});
+
 
 it('Should return 404 if soal not found', function(){
 

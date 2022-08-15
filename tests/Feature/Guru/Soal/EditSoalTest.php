@@ -94,7 +94,7 @@ it('Should edit soal with type pg', function(){
     ]);
 });
 
-it('Should create soal with type pgk', function(){
+it('Should edit soal with type pgk', function(){
 
     $response = $this
         ->withHeaders([
@@ -136,7 +136,7 @@ it('Should create soal with type pgk', function(){
     ]);
 });
 
-it('Should create soal with type menjodohkan', function(){
+it('Should edit soal with type menjodohkan', function(){
 
     $response = $this
         ->withHeaders([
@@ -157,7 +157,7 @@ it('Should create soal with type menjodohkan', function(){
     ]);
 });
 
-it('Should create soal with type isian', function(){
+it('Should edit soal with type isian', function(){
 
     $response = $this
         ->withHeaders([
@@ -178,7 +178,7 @@ it('Should create soal with type isian', function(){
     ]);
 });
 
-it('Should create soal with type uraian', function(){
+it('Should edit soal with type uraian', function(){
 
     $response = $this
         ->withHeaders([
@@ -397,4 +397,27 @@ it('Should have at least 1 correct answer for multiple choice', function(){
     
     $response->assertUnprocessable();
     $response->assertJsonPath('errors.jawabans.0','Setidaknya harus ada 1 jawaban yang benar');
+});
+
+it('Should edit soal with pembahasan', function(){
+
+    $response = $this
+        ->withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $this->user->getAccessToken(),
+        ])
+        ->postJson($this->endpointUrl, [
+            'bobot' => 2,
+            'soal' => '<p>Halo, aku soal</p>',
+            'type' => 'isian',
+            'jawabans' => "jdslfjd sfjdlsfdsl df",
+            'pembahasan' => 'aku pembhasann'
+        ]);
+    
+    $response->assertSuccessful();
+    $this->assertDatabaseHas('soals',[
+        'soal' => '<p>Halo, aku soal</p>',
+        'type' => 'isian',
+        'pembahasan' => 'aku pembhasann',
+    ]);
 });

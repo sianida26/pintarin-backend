@@ -52,6 +52,7 @@ class SoalFactory extends Factory
             'bobot' => 3,
             'type' => 'pg',
             'answers' => $jawabans,
+            'pembahasan' => $this->faker->sentence(80),
             'ujian_id' => Ujian::factory(),
         ];
     }
