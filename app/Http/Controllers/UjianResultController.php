@@ -222,4 +222,29 @@ class UjianResultController extends Controller
             'data' => $soals,
         ]);
     }
+
+    public function submitNilai(Request $request, $id){
+        $user = Auth::user();
+
+        $guru = $user->guru;
+        if (!$guru) return abort(403);
+
+        $ujianResult = UjianResult::findOrFail($id);
+        $ujian = $ujianResult->ujian;
+
+        $bobotTotal = 0;
+        $anwers = collect($request->scores)->map(function($score)use($bobotTotal){
+
+            // dd($answer);
+            
+            $answer = $ujianResult->getAnswerBySoalId($score['soalId']);
+            $answer['score'] = $score['score'];
+            
+            return $answer;
+        });
+        
+        $ujianResults->answers = $answers;
+
+        return response()->json($request->answers);
+    }
 }

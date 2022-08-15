@@ -44,6 +44,11 @@ class UjianResult extends Model
     }
 
     public function getAnswerBySoalId($id){
-        return collect(collect($this->answers)->firstWhere('id',$id));
+        return $this->getAnswersCollection()->firstWhere('id',$id);
+    }
+
+    public function getAnswersCollection(){
+        return collect($this->answers)
+            ->map(fn($answer) => collect($answer));
     }
 }
