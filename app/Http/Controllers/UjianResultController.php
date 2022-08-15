@@ -233,17 +233,18 @@ class UjianResultController extends Controller
         $ujian = $ujianResult->ujian;
 
         $bobotTotal = 0;
-        $anwers = collect($request->scores)->map(function($score)use($bobotTotal){
+        $answers = collect($request->scores)->map(function($score)use($bobotTotal){
 
             // dd($answer);
             
             $answer = $ujianResult->getAnswerBySoalId($score['soalId']);
             $answer['score'] = $score['score'];
-            
+            $bobotTotal += Soal::findOrFail($answer['id'])->bobot;
             return $answer;
         });
-        
+
         $ujianResults->answers = $answers;
+        $ujianResults->nilai = $answers->sum('score')/$bobotTotal*100;
 
         return response()->json($request->answers);
     }
