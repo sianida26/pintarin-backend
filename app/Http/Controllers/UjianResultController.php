@@ -243,8 +243,9 @@ class UjianResultController extends Controller
             return $answer;
         });
 
-        $ujianResults->answers = $answers;
-        $ujianResults->nilai = $answers->sum('score')/$bobotTotal*100;
+        $ujianResult->answers = $answers;
+        $ujianResult->nilai = $answers->sum('score')/$bobotTotal*100;
+        $ujianResult->save();
 
         return response()->json($request->answers);
     }
