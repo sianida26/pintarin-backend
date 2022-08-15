@@ -55,6 +55,7 @@ class LatihanController extends Controller
                 'soal' => $soal->soal,
                 'soal_id' => $soal->id,
                 'jawabans' => $soal->answers,
+                'pembahasan' => $soal->pembahasan,
             ])
             ->sortBy(function($soal){
                 switch ($soal['type']){

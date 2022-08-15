@@ -23,8 +23,7 @@ class SoalController extends Controller
             'bobot' => 'required|numeric|min:0',
             'soal' => 'required',
             'type' => ['required', Rule::in(['pg','pgk','menjodohkan','isian','uraian'])],
-            'jawabans' => 'required',
-            'pembahasan' => 'required'
+            'jawabans' => 'required'
         ];
 
         $messages = [
@@ -232,6 +231,7 @@ class SoalController extends Controller
                 'bobot' => $request->bobot,
                 'type' => 'pg',
                 'answers' => $jawabans,
+                'pembahasan' => $request->pembahasan,
             ]);
 
             return response()->json(['message' => 'Soal berhasil diubah']);
@@ -262,6 +262,7 @@ class SoalController extends Controller
                 'bobot' => $request->bobot,
                 'type' => 'pgk',
                 'answers' => $jawabans,
+                'pembahasan' => $request->pembahasan,
             ]);
 
             return response()->json(['message' => 'Soal berhasil diubah']);
@@ -283,6 +284,7 @@ class SoalController extends Controller
                 'bobot' => $request->bobot,
                 'type' => 'menjodohkan',
                 'answers' => $jawabans,
+                'pembahasan' => $request->pembahasan,
             ]);
 
             return response()->json(['message' => 'Soal berhasil diubah']);
@@ -304,6 +306,7 @@ class SoalController extends Controller
                 'bobot' => $request->bobot,
                 'type' => 'isian',
                 'answers' => $jawabans,
+                'pembahasan' => $request->pembahasan,
             ]);
 
             return response()->json(['message' => 'Soal berhasil diubah']);
@@ -325,6 +328,7 @@ class SoalController extends Controller
                 'bobot' => $request->bobot,
                 'type' => 'uraian',
                 'answers' => $jawabans,
+                'pembahasan' => $request->pembahasan,
             ]);
 
             return response()->json(['message' => 'Soal berhasil diubah']);
@@ -353,6 +357,7 @@ class SoalController extends Controller
             'bobot' => $soal->bobot,
             'answers' => $answers,
             'soal' => $soal->soal,
+            'pembahasan' => $soal->pembahasan,
         ]);
     }
 
