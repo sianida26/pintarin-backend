@@ -238,7 +238,7 @@ class UjianResultController extends Controller
             // dd($answer);
             
             $answer = $ujianResult->getAnswerBySoalId($score['soalId']);
-            $answer['score'] = $score['score'];
+            $answer['score'] = $score['score'] ?? 0;
             $bobotTotal += Soal::findOrFail($answer['id'])->bobot;
             return $answer;
         });
