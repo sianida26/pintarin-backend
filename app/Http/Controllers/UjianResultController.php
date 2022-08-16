@@ -265,6 +265,7 @@ class UjianResultController extends Controller
          * 
          * Sorted by submittedAt
          */
+
         $ujianResults = $siswa->ujianResults()->get()
             ->map(function($ujianResult){
                 $ujian = $ujianResult->ujian;
@@ -274,6 +275,34 @@ class UjianResultController extends Controller
                     'score' => $ujianResult->nilai,
                     'deskripsi' => $ujian->deskripsi,
                     'submittedAt' => $ujianResult->created_at,
+                ];
+            })
+            ->sortBy('submittedAt')
+            ->values()
+            ->all();
+        
+        return response()->json($ujianResults);
+    }
+
+    public function getRaporKelasByKelasId(Request $request, $kelasId){
+        $user = Auth::user();
+        $siswa = $user->siswa;
+        if (!$siswa) return abort(403);
+        
+        $kelas = Kelas::findOrFail($kelasId);
+        $ujianResults = $kelas
+            ->ujians
+            ->where('isUjian',true)
+            ->map->ujianResults
+            ->flatten()
+            ->where('siswa_id',$siswa->id)
+            ->map(function($ujianResult){
+                $ujian = $ujianResult->ujian;
+                return [
+                    'id' => $ujianResult->id,
+                    'name' => $ujian->name,
+                    'score' => $ujianResult->nilai,
+                    'deskripsi' => $ujian->deskripsi,
                 ];
             })
             ->sortBy('submittedAt')

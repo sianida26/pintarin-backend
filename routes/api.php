@@ -105,6 +105,7 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['auth:sanctum','role:siswa']
 
     Route::group(['prefix' => 'rapor'], function(){
         Route::get('/', [UjianResultController::class, 'getRaporSiswa']);
+        Route::get('/kelas/{id}', [UjianResultController::class, 'getRaporSiswaByKelasId']);
     });
     
 });
