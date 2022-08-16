@@ -102,6 +102,10 @@ Route::group(['prefix' => 'siswa', 'middleware' => ['auth:sanctum','role:siswa']
         Route::get('/{id}', [UjianController::class, 'getUjianById']);
         Route::post('/submit', [UjianController::class, 'submit']);
     });
+
+    Route::group(['prefix' => 'rapor'], function(){
+        Route::get('/', [UjianResultController::class, 'getRaporSiswa']);
+    });
     
 });
 

@@ -249,4 +249,37 @@ class UjianResultController extends Controller
 
         return response()->json($request->answers);
     }
+
+    public function getRaporSiswa(Request $request){
+        $user = Auth::user();
+        $siswa = $user->siswa;
+
+        if (!$siswa) return abort(403);
+
+        /**
+         * Returns response body:
+         * - id: ujianResult id
+         * - name: ujian name
+         * - score: score
+         * - deskripsi: deskripsi
+         * 
+         * Sorted by submittedAt
+         */
+        $ujianResults = $siswa->ujianResults()->get()
+            ->map(function($ujianResult){
+                $ujian = $ujianResult->ujian;
+                return [
+                    'id' => $ujianResult->id,
+                    'name' => $ujian->name,
+                    'score' => $ujianResult->nilai,
+                    'deskripsi' => $ujian->deskripsi,
+                    'submittedAt' => $ujianResult->created_at,
+                ];
+            })
+            ->sortBy('submittedAt')
+            ->values()
+            ->all();
+        
+        return response()->json($ujianResults);
+    }
 }
