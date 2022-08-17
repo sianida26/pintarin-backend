@@ -163,7 +163,7 @@ class UjianResultController extends Controller
                     $status = $score === null ? "NOT REVIEWED" : "REVIEWED";
                 }
                 return [
-                    'id' => $siswa->id,
+                    'id' => $ujianResult?->id,
                     'name' => $siswa->user->name,
                     'submitAt' => $submitTime,
                     'status' => [
@@ -322,7 +322,7 @@ class UjianResultController extends Controller
                 return [
                     'id' => $ujianResult->id,
                     'name' => $ujian->name,
-                    'score' => $ujianResult->nilai,
+                    'score' => $ujianResult->nilai ?? "-",
                     'resultCategory' => $resultCategory,
                     'deskripsi' => $deskripsi,
                 ];
@@ -331,6 +331,11 @@ class UjianResultController extends Controller
             ->values()
             ->all();
         
-        return response()->json($ujianResults);
+        return response()->json([
+            'kelas_name' => $kelas->name,
+            'matpel_name' => $kelas->matpel->name,
+            'guru_name' => $kelas->guru->user->name,
+            'data' => $ujianResults
+        ]);
     }
 }
