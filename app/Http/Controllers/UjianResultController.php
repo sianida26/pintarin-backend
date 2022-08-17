@@ -284,7 +284,7 @@ class UjianResultController extends Controller
         return response()->json($ujianResults);
     }
 
-    public function getRaporKelasByKelasId(Request $request, $kelasId){
+    public function getRaporSiswaByKelasId(Request $request, $kelasId){
         $user = Auth::user();
         $siswa = $user->siswa;
         if (!$siswa) return abort(403);
