@@ -298,11 +298,33 @@ class UjianResultController extends Controller
             ->where('siswa_id',$siswa->id)
             ->map(function($ujianResult){
                 $ujian = $ujianResult->ujian;
+
+                $resultCategory = "Belum Ujian";
+                if ($ujianResult->nilai === null) $resultCategory = "Belum dinilai";
+                else if ($ujianResult->nilai >= 91) $resultCategory = "Mahir";
+                else if ($ujianResult->nilai >= 76) $resultCategory = "Cakap";
+                else if ($ujianResult->nilai >= 51) $resultCategory = "Dasar";
+                else if ($ujianResult->nilai >= 0) $resultCategory = "Perlu Intervensi Khusus";
+
+                $deskripsi = "";
+                if ($ujian->category === "numerasi"){
+                    if ($resultCategory === "A") $deskripsi = "Peserta didik mampu bernalar untuk menyelesaikan masalah kompleks serta nonrutin berdasarkan konsep matematika yang dimilikinya.";
+                    else if ($resultCategory === "B") $deskripsi = "Peserta didik mampu mengaplikasikan pengetahuan matematika yang dimiliki dalam konteks yang lebih beragam.";
+                    else if ($resultCategory === "C") $deskripsi = "Peserta didik memiliki kemampuan dasar matematika: komputasi dasar dalam bentuk persamaan langsung, konsep dasar terkait geometri dan statistika, serta menyelesaikan masalah matematika sederhana yang rutin.";
+                    else if ($resultCategory === "D") $deskripsi = "Peserta didik hanya memiliki pengetahuan matematika yang terbatas (penguasaan konsep yang parsial dan keterampilan komputasi yang terbatas).";
+                } else if ($ujian->category === "literasi"){
+                    if ($resultCategory === "A") $deskripsi = "Peserta didik mampu mengitegrasikan beberapa informasi lintas teks; mengevaluasi isi, kualitas, cara penulisan suatu teks, dan bersikap reflektif terhadap isi teks.";
+                    else if ($resultCategory === "B") $deskripsi = "Peserta didik mampu membuat interpretasi dari informasi implisit yang ada dalam teks; mampu membuat simpulan dari hasil integrasi beberapa informasi dalam suatu teks.";
+                    else if ($resultCategory === "C") $deskripsi = "Peserta didik mampu menemukan dan mengambil informasi eksplisit yang ada dalam teks serta membuat interpretasi sederhana.";
+                    else if ($resultCategory === "D") $deskripsi = "Peserta didik belum mampu menemukan dan mengambil informasi eksplisit yang ada dalam teks ataupun membuat interpretasi sederhana.";
+                }
+
                 return [
                     'id' => $ujianResult->id,
                     'name' => $ujian->name,
                     'score' => $ujianResult->nilai,
-                    'deskripsi' => $ujian->deskripsi,
+                    'resultCategory' => $resultCategory,
+                    'deskripsi' => $deskripsi,
                 ];
             })
             ->sortBy('submittedAt')
